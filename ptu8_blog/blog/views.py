@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Blog Index puslapis")
+    return HttpResponse("Blog puslapis")
