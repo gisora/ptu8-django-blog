@@ -26,11 +26,28 @@ class Post(models.Model):
         help_text=_('select categories for this post'),
         verbose_name=_('categories')
     )
-    posted = models.DateTimeField(_('posted'), auto_now_add=True, help_text=_('post created'))
+    created = models.DateTimeField(_('created'), auto_now_add=True, help_text=_('post created'))
     updated = models.DateTimeField(_('updated'), auto_now=True, help_text=_('post updated'))
 
+    POST_STATUS = (
+        ('d', _('draft')),
+        ('p', _('published'))
+    )
+
+    status = models.CharField(
+        _('status'),
+        max_length=1,
+        choices=POST_STATUS,
+        default='d',
+        help_text=_('Change post status')
+    )
+
+    def display_comments_count(self):
+        return self.comments.all().count()
+    display_comments_count.short_description = _('comments count')
+
     class Meta:
-        ordering = ['posted']
+        ordering = ['created']
     
     def __str__(self) -> str:
         return f"{self.author} - {self.title} ({self.updated})"
