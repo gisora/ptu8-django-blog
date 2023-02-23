@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}Welcome to BeBlEv{% endblock title %}
+
+{% block main %}
+    {% for post in posts %}
+    <article>
+        <header>
+        <hgroup>
+            <h1>{{ post.title }}</h1>
+            <h2>By <a href="authors/{{ post.author.id }}">{{ post.author.get_full_name }}</a> on {{ post.updated }} </h2>
+        </hgroup> 
+    </header>
+        <section>{{ post.text|safe }}</section>
+        <footer><a href="posts/{{ post.id }}">[ Continue reading ]</a></footer>
+    </article>   
+    {% endfor %}
+
+{% endblock main %}

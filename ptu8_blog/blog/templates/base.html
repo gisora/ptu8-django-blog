@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static i18n %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header id="top-header" class="container-fluid">
+        <nav class="container">
+            <ul>
+              <li><strong>Best Blog Ever</strong></li>
+            </ul>
+            <ul>
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li><a href="{% url 'index' %}">Writers</a></li>
+              <li><button class="contrast"
+                data-target="modal-example"
+                onClick="toggleModal(event)">
+                Log in
+              </button>
+            </li>
+            </ul>
+          </nav>
+    </header>
+    <main class="container">
+        {% block main %}
+        {% endblock main %}
+    </main>
+    <dialog id="modal-example">
+        <article>
+          <a href="#close"
+            aria-label="Close"
+            class="close"
+            data-target="modal-example"
+            onClick="toggleModal(event)">
+          </a>
+          <h3>Enter your login information!</h3>
+          <p>
+            Cras sit amet maximus risus. 
+            Pellentesque sodales odio sit amet augue finibus pellentesque. 
+            Nullam finibus risus non semper euismod.
+          </p>
+          <footer>
+            <a href="#cancel"
+              role="button"
+              class="secondary"
+              data-target="modal-example"
+              onClick="toggleModal(event)">
+              Cancel
+            </a>
+            <a href="#confirm"
+              role="button"
+              data-target="modal-example"
+              onClick="toggleModal(event)">
+              Confirm
+            </a>
+          </footer>
+        </article>
+      </dialog>
+
+    <footer class="container">
+        &copy; 2023, BeBlEv Inc.
+    </footer>
+    <script src="https://picocss.com/docs/js/commons.min.js"></script>
+    <script src="https://picocss.com/docs/js/modal.min.js"></script>
+</body>
+</html>

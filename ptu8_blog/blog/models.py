@@ -20,7 +20,7 @@ class Post(models.Model):
         related_name='posts',
         verbose_name=_('author')
     )
-    text = tinymce_models.HTMLField(_('text'), max_length=4000, null=True, blank=True, help_text=_('post text'))
+    text = tinymce_models.HTMLField(_('text'), null=True, blank=True, help_text=_('post text'))
     category = models.ManyToManyField(
         Category,
         help_text=_('select categories for this post'),
