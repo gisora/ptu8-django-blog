@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static i18n %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,23 +10,19 @@
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     <title>{% block title %}{% endblock title %}</title>
 </head>
+
 <body>
     <header id="top-header" class="container-fluid">
         <nav class="container">
             <ul>
-              <li><strong>Best Blog Ever</strong></li>
+                <li><strong>Best Blog Ever</strong></li>
             </ul>
             <ul>
-              <li><a href="{% url 'index' %}">Home</a></li>
-              <li><a href="{% url 'index' %}">Writers</a></li>
-              <li><button class="contrast"
-                data-target="modal-example"
-                onClick="toggleModal(event)">
-                Log in
-              </button>
-            </li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'index' %}">Writers</a></li>
+                <li><button class="contrast" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
             </ul>
-          </nav>
+        </nav>
     </header>
     <main class="container">
         {% block main %}
@@ -33,35 +30,19 @@
     </main>
     <dialog id="modal-example">
         <article>
-          <a href="#close"
-            aria-label="Close"
-            class="close"
-            data-target="modal-example"
-            onClick="toggleModal(event)">
-          </a>
-          <h3>Enter your login information!</h3>
-          <p>
-            Cras sit amet maximus risus. 
-            Pellentesque sodales odio sit amet augue finibus pellentesque. 
-            Nullam finibus risus non semper euismod.
-          </p>
-          <footer>
-            <a href="#cancel"
-              role="button"
-              class="secondary"
-              data-target="modal-example"
-              onClick="toggleModal(event)">
-              Cancel
-            </a>
-            <a href="#confirm"
-              role="button"
-              data-target="modal-example"
-              onClick="toggleModal(event)">
-              Confirm
-            </a>
-          </footer>
+            <a href="#close" aria-label="Close" class="close" data-target="modal-example" onClick="toggleModal(event)"></a>
+            <h3>Enter your login information!</h3>
+            <p>
+                Cras sit amet maximus risus.
+                Pellentesque sodales odio sit amet augue finibus pellentesque.
+                Nullam finibus risus non semper euismod.
+            </p>
+            <footer>
+                <a href="#cancel" role="button" class="secondary" data-target="modal-example" onClick="toggleModal(event)">Cancel</a>
+                <a href="#confirm" role="button" data-target="modal-example" onClick="toggleModal(event)">Confirm</a>
+            </footer>
         </article>
-      </dialog>
+    </dialog>
 
     <footer class="container">
         &copy; 2023, BeBlEv Inc.
