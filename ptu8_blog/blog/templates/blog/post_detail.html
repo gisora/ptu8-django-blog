@@ -7,7 +7,7 @@
         <header>
         <hgroup>
             <h1>{{ post.title }}</h1>
-            <h2>By <a href="authors/{{ post.author.id }}">{{ post.author.get_full_name }}</a> on {{ post.updated }}</h2>
+            <h2>By <a href="{% url 'author-detail' post.author.id %}">{{ post.author.get_full_name }}</a> on {{ post.updated }}</h2>
         </hgroup> 
     </header>
         <section>{{ post.text|safe }}</section>
