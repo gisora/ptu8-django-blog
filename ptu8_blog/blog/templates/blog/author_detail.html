@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}Welcome to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <header>
+            <hgroup>
+                <h1>{{ user.get_full_name }}</h1>
+                <h2>{{ user.username }}</h2>
+            </hgroup>
+        </header>
+        <section>
+            {% if user.posts.count > 0 %}
+            <h3> Total posts ({{ user.posts.count }})</h3>
+            <ol>
+                {% for post in user.posts.all %}
+                <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <h3> Author have not posted yet</h3>
+            {% endif %}
+        </section>
+    </article>
+{% endblock main %}

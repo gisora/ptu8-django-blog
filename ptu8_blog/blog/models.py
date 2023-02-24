@@ -12,6 +12,11 @@ class Category(models.Model):
         return self.name
 
 
+class UserProfile(models.Model):
+    user   = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField() # or whatever
+
+
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=255, db_index=True, help_text=_('post title'))
     author = models.ForeignKey(
@@ -20,17 +25,34 @@ class Post(models.Model):
         related_name='posts',
         verbose_name=_('author')
     )
-    text = tinymce_models.HTMLField(_('text'), max_length=4000, null=True, blank=True, help_text=_('post text'))
+    text = tinymce_models.HTMLField(_('text'), null=True, blank=True, help_text=_('post text'))
     category = models.ManyToManyField(
         Category,
         help_text=_('select categories for this post'),
         verbose_name=_('categories')
     )
-    posted = models.DateTimeField(_('posted'), auto_now_add=True, help_text=_('post created'))
+    created = models.DateTimeField(_('created'), auto_now_add=True, help_text=_('post created'))
     updated = models.DateTimeField(_('updated'), auto_now=True, help_text=_('post updated'))
 
+    POST_STATUS = (
+        ('d', _('draft')),
+        ('p', _('published'))
+    )
+
+    status = models.CharField(
+        _('status'),
+        max_length=1,
+        choices=POST_STATUS,
+        default='d',
+        help_text=_('Change post status')
+    )
+
+    def display_comments_count(self):
+        return self.comments.all().count()
+    display_comments_count.short_description = _('comments count')
+
     class Meta:
-        ordering = ['posted']
+        ordering = ['created']
     
     def __str__(self) -> str:
         return f"{self.author} - {self.title} ({self.updated})"
