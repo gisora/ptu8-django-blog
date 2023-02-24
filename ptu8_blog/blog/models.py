@@ -12,6 +12,11 @@ class Category(models.Model):
         return self.name
 
 
+class UserProfile(models.Model):
+    user   = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField() # or whatever
+
+
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=255, db_index=True, help_text=_('post title'))
     author = models.ForeignKey(

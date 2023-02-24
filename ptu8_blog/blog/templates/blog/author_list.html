@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}Welcome to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <header>
+            <form class="grid">
+                <input type="text" name="search" placeholder="Search for authors" />
+                <button class="primary" type="submit">&#x1F373; Search</button>
+            </form>
+        </header>
+        
+        {% for author in user_list %}
+        <details>
+            <summary><strong>{{ author.get_full_name }} published {{ author.posts.count }} post(s)</strong></summary>
+            <ul>
+                {% for post in author.posts.all %}
+                    <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
+                
+            
+                {% endfor %}
+            </ul>
+        </details>
+        {% endfor %}
+    </article>
+{% endblock main %}

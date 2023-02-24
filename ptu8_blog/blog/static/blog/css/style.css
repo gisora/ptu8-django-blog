@@ -1,7 +1,7 @@
 body {
-    background-image: url("/static/blog/header_bg.png");
+    background-image: url("/static/blog/img/header_bg.png");
     background-size: 100%;
-    padding-top: 50px;
+    padding-top: 80px;
 }
 
 footer {
@@ -21,7 +21,7 @@ header {
 #top-header {
     position: fixed;
     top: 0;
-    padding-top: 60px;
+    padding-top: 20px;
     padding-bottom: 0px;
     margin-bottom: 80px;
     width: 100%;
@@ -138,3 +138,8 @@ dialog.example[open=false] {
 .switcher:focus {
     box-shadow: var(--card-box-shadow), 0 0 0 .2rem var(--secondary-focus)
 }
+
+form.container-fluid > button.primary{
+    width: fit-content;
+}
+
