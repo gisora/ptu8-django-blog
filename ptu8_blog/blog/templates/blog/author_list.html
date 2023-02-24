@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load static i18n %}
 {% block title %}Welcome to BeBlEv{% endblock title %}
 
 {% block main %}
@@ -13,12 +13,16 @@
         
         {% for author in user_list %}
         <details>
-            <summary><strong>{{ author.get_full_name }} published {{ author.posts.count }} post(s)</strong></summary>
+            <summary><strong>
+                {% if author.userprofile.avatar %}
+                    <img class="profileavatar" src="{{ author.userprofile.avatar.url }}">
+                {% else %}
+                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
+                {% endif %}
+                {{ author.get_full_name }} published {{ author.posts.count }} post(s)</strong></summary>
             <ul>
                 {% for post in author.posts.all %}
                     <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
-                
-            
                 {% endfor %}
             </ul>
         </details>

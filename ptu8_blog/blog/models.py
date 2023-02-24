@@ -13,8 +13,8 @@ class Category(models.Model):
 
 
 class UserProfile(models.Model):
-    user   = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField() # or whatever
+    user   = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('profile'))
+    avatar = models.ImageField(_('avatar'), upload_to='blog/avatars/', null=True, blank=True)
 
 
 class Post(models.Model):

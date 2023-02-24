@@ -38,3 +38,4 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(models.Category)
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Comment, CommentAdmin)
+admin.site.register(models.UserProfile)
