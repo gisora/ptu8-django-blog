@@ -19,8 +19,9 @@
             </ul>
             <ul>
                 <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'index' %}">Writers</a></li>
-                <li><button class="contrast" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
+                <li><a href="{% url 'authors' %}">Writers</a></li>
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><button class="outline" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
             </ul>
         </nav>
     </header>
@@ -31,19 +32,24 @@
     <dialog id="modal-example">
         <article>
             <a href="#close" aria-label="Close" class="close" data-target="modal-example" onClick="toggleModal(event)"></a>
-            <h3>Enter your login information!</h3>
-            <p>
-                Cras sit amet maximus risus.
-                Pellentesque sodales odio sit amet augue finibus pellentesque.
-                Nullam finibus risus non semper euismod.
-            </p>
+            <h3>Enter your login information</h3>
+            <form>
+                <!-- <label for="username">Username:</label> -->
+                <input type="text" name="username" placeholder="Username"/>
+                <!-- <label for="password">Password:</label> -->
+                <input type="password" name="password" placeholder="Password"/>
+                <p>
+                    <input type="checkbox" name="remember_me">
+                    Remember me
+                </p>
+
+            </form>
             <footer>
                 <a href="#cancel" role="button" class="secondary" data-target="modal-example" onClick="toggleModal(event)">Cancel</a>
-                <a href="#confirm" role="button" data-target="modal-example" onClick="toggleModal(event)">Confirm</a>
+                <a href="#confirm" role="button" data-target="modal-example" onClick="toggleModal(event)">Login</a>
             </footer>
         </article>
     </dialog>
-
     <footer class="container">
         &copy; 2023, BeBlEv Inc.
     </footer>

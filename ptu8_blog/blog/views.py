@@ -5,7 +5,8 @@ from . import models
 
 # Create your views here.
 def index(request):
-    posts = models.Post.objects.all()
+    # posts = models.Post.objects.all()
+    posts = models.Post.objects.filter(status='p')
     context = {
         'posts': posts,
     }

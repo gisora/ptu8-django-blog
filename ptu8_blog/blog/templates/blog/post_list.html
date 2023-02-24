@@ -3,14 +3,12 @@
 {% block title %}Welcome to BeBlEv{% endblock title %}
 
 {% block main %}
-    {% for post in post_list %}
     <article>
-        <hgroup>
-            <h1>{{ post.title }}</h1>
-            <h2>By {{ post.author.get_full_name }} on {{ post.updated }}</h2>
-        </hgroup> 
-        <section>{{ post.text|safe }}</section>
-        
-    </article>   
-    {% endfor %}
+        {% for post in post_list %}
+        <details>
+            <summary>{{ post.title }} by {{ post.author.get_full_name }}</summary>
+            <section>{{ post.text|safe }}</section>
+        </details>
+        {% endfor %}
+    </article>
 {% endblock main %}
