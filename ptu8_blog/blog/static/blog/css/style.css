@@ -1,6 +1,7 @@
 body {
     background-image: url("/static/blog/img/header_bg.png");
     background-size: 100%;
+    background-attachment: fixed;
     padding-top: 80px;
 }
 
@@ -143,3 +144,7 @@ form.container-fluid > button.primary{
     width: fit-content;
 }
 
+.profileavatar {
+    border-radius: 50%;
+    height: 6rem;
+}
