@@ -17,7 +17,7 @@ def index(request):
 class PostListView(generic.ListView):
     model = models.Post
     template_name = 'blog/post_list.html'
-    paginate_by = 4
+    # paginate_by = 4
 
     def get_queryset(self):
         qs =  super().get_queryset().filter(status='p')
@@ -38,7 +38,7 @@ class PostDetailView(generic.DetailView):
 class AuthorListView(generic.ListView):
     model = models.User
     template_name = 'blog/author_list.html'
-    paginate_by = 4
+    # paginate_by = 4
 
     def get_queryset(self):
         qs =  super().get_queryset().annotate(num_posts=Count('posts')).filter(num_posts__gt=0)
