@@ -5,12 +5,11 @@
 {% block main %}
     <form class="container-fluid">
         <select id="category" required onchange='location = this.value;'">
-            <option value="">Select category...</option>
-            <option value="{% url 'posts' %}">All</option>
+            <option value="{% url 'posts' %}">Select category...</option>
             {% for category in categories %}
-                <option value="?category_id={{ category.id }}">{{ category.name }}</option>
+                <option value="?category_id={{ category.id }}" {% if category.id == selected_category.id %}selected="selected"{% endif %}>{{ category.name }}</option>
             {% endfor %}
-            </select>
+        </select>
     </form>
     <article>
         <header>
