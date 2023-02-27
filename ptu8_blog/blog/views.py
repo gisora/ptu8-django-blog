@@ -8,16 +8,20 @@ from . import models
 # Create your views here.
 def index(request):
     # posts = models.Post.objects.all()
-    posts = models.Post.objects.filter(status='p')
+    # posts = models.Post.objects.filter(status='p')
+    paginator = Paginator(models.Post.objects.filter(status='p'), 2)
+    page_number = request.GET.get('page')
+    paged_posts = paginator.get_page(page_number)
+        
     context = {
-        'posts': posts,
+        'posts': paged_posts,
     }
     return render(request, 'blog/index.html', context=context)
 
 class PostListView(generic.ListView):
     model = models.Post
     template_name = 'blog/post_list.html'
-    # paginate_by = 4
+    paginate_by = 10
 
     def get_queryset(self):
         qs =  super().get_queryset().filter(status='p')
@@ -38,7 +42,7 @@ class PostDetailView(generic.DetailView):
 class AuthorListView(generic.ListView):
     model = models.User
     template_name = 'blog/author_list.html'
-    # paginate_by = 4
+    paginate_by = 10
 
     def get_queryset(self):
         qs =  super().get_queryset().annotate(num_posts=Count('posts')).filter(num_posts__gt=0)

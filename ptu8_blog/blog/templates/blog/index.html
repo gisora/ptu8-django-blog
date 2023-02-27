@@ -4,6 +4,7 @@
 
 {% block main %}
     {% for post in posts %}
+    
     <article>
         <header>
         <hgroup>
@@ -13,7 +14,13 @@
     </header>
         <section>{{ post.text|safe|truncatewords:50 }}</section>
         <footer><a href="posts/{{ post.id }}">[ Continue reading ]</a></footer>
-    </article>   
+    </article>
+       
     {% endfor %}
+    {% with posts as page_obj %}
+        {% include 'blog/includes/paginator.html' %}
+    {% endwith %}
+    
+    
 
 {% endblock main %}
