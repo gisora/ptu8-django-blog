@@ -14,7 +14,11 @@
         {% for post in post_list %}
         <details>
             <summary><strong>{{ post.title }} by {{ post.author.get_full_name }}</strong></summary>
-            <section>{{ post.text|safe }}</section>
+            <section>
+                {{ post.text|safe|truncatewords:50 }}
+                <a href="{% url 'post-detail' post.id %}">Continue reading</a>
+             </section>
+            
         </details>
         {% endfor %}
     </article>
