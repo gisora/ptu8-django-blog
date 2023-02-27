@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}Login to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <h3>Logged out succesfully</h3>
+        <p><a href="{% url 'login' %}">Log in again</a>.</p>
+    </article>
+{% endblock main %}
