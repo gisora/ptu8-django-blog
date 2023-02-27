@@ -5,21 +5,25 @@
 {% block main %}
     <article>
         <header>
-            {% if user.userprofile.avatar %}
-                <img class="profileavatar" src="{{ user.userprofile.avatar.url }}">
+            
+            {% if author.userprofile.avatar %}
+                <img class="profileavatar" src="{{ author.userprofile.avatar.url }}">
             {% else %}
                 <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
             {% endif %}
             <hgroup>
-                <h1>{{ user.get_full_name }}</h1>
-                <h2>{{ user.username }}</h2>
+                <h1>{{ author.get_full_name }}</h1>
+                <h2>{{ author.username }}</h2>
             </hgroup>
+            {% if user.is_authenticated and user.id == author.id %}
+                <a role="button" href="">Write new post</a>
+            {% endif %}
         </header>
         <section>
-            {% if user.posts.count > 0 %}
-            <h3> Total posts ({{ user.posts.count }})</h3>
+            {% if author.posts.count > 0 %}
+            <h3> Total posts ({{ author.posts.count }})</h3>
             <ol>
-                {% for post in user.posts.all %}
+                {% for post in author.posts.all %}
                 <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
                 {% endfor %}
             </ol>

@@ -53,10 +53,10 @@ class PostDetailView(generic.DetailView):
     model = models.Post
     template_name = 'blog/post_detail.html'
 
-
 class AuthorListView(generic.ListView):
     model = models.User
     template_name = 'blog/author_list.html'
+    context_object_name = "authors_list"
     paginate_by = 10
 
     def get_queryset(self):
@@ -73,3 +73,4 @@ class AuthorListView(generic.ListView):
 class AuthorDetailView(generic.DetailView):
     model = models.User
     template_name = 'blog/author_detail.html'
+    context_object_name = "author"
