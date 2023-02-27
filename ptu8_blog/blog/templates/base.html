@@ -21,18 +21,31 @@
                 <li><a href="{% url 'index' %}">Home</a></li>
                 <li><a href="{% url 'authors' %}">Writers</a></li>
                 <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li>
                 {% if user.is_authenticated %}
-                    <li>
-                        {% if user.userprofile.avatar %}
-                            <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.userprofile.avatar.url }}"> 
-                        {% else %}
-                            <img style="width: 1.5rem; height: 1.5rem;" src="{% static 'blog/img/default_avatar.png' %}"> 
-                        {% endif %}   
-                        <a href="{% url 'author-detail' user.id %}">{{ user.get_full_name }}</a>
-                    </li>
+                    <details role="list" >
+                        <summary aria-haspopup="listbox" role="link">
+                            {% if user.userprofile.avatar %}
+                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.userprofile.avatar.url }}"> 
+                            {% else %}
+                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
+                            {% endif %}   
+                            <!-- <a href="{% url 'author-detail' user.id %}">{{ user.get_full_name }}</a> -->
+                            &nbsp;{{ user.get_full_name }}
+                        </summary>
+                            <ul role="listbox">
+                                <li><a>&#x2712; Blog posts</a></li>
+                                <li><a>&#x2699; Profile</a></li>
+                                {% if user.is_superuser or user.is_staff %}
+                                <li><a href="{% url 'admin:index' %}">&#x1F6E0; Admin</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'logout' %}">&#x1F510; Logout</a></li>
+                            </ul>
+                    </details>
                 {% else %}
-                    <li><button class="outline" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
+                    <button class="outline" data-target="modal-login" onClick="toggleModal(event)">Log in</button>
                 {% endif %}
+            </li>
             </ul>
         </nav>
     </header>
@@ -40,24 +53,24 @@
         {% block main %}
         {% endblock main %}
     </main>
-    <dialog id="modal-example">
+    <dialog id="modal-login">
         <article>
-            <a href="#close" aria-label="Close" class="close" data-target="modal-example" onClick="toggleModal(event)"></a>
+            <a href="#close" aria-label="Close" class="close" data-target="modal-login" onClick="toggleModal(event)"></a>
             <h3>Enter your login information</h3>
-            <form>
+            <form id="login-form" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
                 <!-- <label for="username">Username:</label> -->
                 <input type="text" name="username" placeholder="Username"/>
                 <!-- <label for="password">Password:</label> -->
                 <input type="password" name="password" placeholder="Password"/>
                 <p>
-                    <input type="checkbox" name="remember_me">
-                    Remember me
+                    Forget password?
                 </p>
-
+                
             </form>
             <footer>
-                <a href="#cancel" role="button" class="secondary" data-target="modal-example" onClick="toggleModal(event)">Cancel</a>
-                <a href="#confirm" role="button" data-target="modal-example" onClick="toggleModal(event)">Login</a>
+                <a href="#cancel" role="button" class="secondary" data-target="modal-login" onClick="toggleModal(event)">Cancel</a>
+                <a href="#confirm" role="button" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</a>
             </footer>
         </article>
     </dialog>
@@ -65,6 +78,6 @@
         &copy; 2023, BeBlEv Inc.
     </footer>
     <script src="https://picocss.com/docs/js/commons.min.js"></script>
-    <script src="https://picocss.com/docs/js/modal.min.js"></script>
+    <script src="{% static 'blog/js/modal.js' %}"></script>
 </body>
 </html>

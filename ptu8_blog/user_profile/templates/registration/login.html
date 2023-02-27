@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}Login to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <h3>Enter your login information</h3>
+        <form id="login-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <!-- <label for="username">Username:</label> -->
+            <input type="text" name="username" placeholder="Username"/>
+            <!-- <label for="password">Password:</label> -->
+            <input type="password" name="password" placeholder="Password"/>
+            <p>
+                Forget password?
+            </p>
+        </form>
+        <footer>
+            <a href="#cancel" role="button" class="secondary" onClick="toggleModal(event)">Cancel</a>
+            <a href="#confirm" role="button" onClick="document.getElementById('login-form').submit();">Login</a>
+        </footer>
+    </article>
+{% endblock main %}

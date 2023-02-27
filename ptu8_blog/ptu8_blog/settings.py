@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 from . import local_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,10 +30,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
     'blog',
+    'user_profile',
     'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -113,6 +116,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 
 # Static files (CSS, JavaScript, Images)
