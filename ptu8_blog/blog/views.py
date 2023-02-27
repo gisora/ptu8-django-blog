@@ -1,6 +1,6 @@
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 # from django.http import HttpResponse
 from . import models
@@ -25,6 +25,11 @@ class PostListView(generic.ListView):
 
     def get_queryset(self):
         qs =  super().get_queryset().filter(status='p')
+        
+        category_id = self.request.GET.get('category_id')
+        if category_id:
+            qs = qs.filter(category=category_id)
+
         query = self.request.GET.get('search')
         if query:
             qs = qs.filter(
@@ -32,6 +37,16 @@ class PostListView(generic.ListView):
                 Q(author__last_name__startswith=query)
             )
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = models.Category.objects.all()
+        context.update({'categories': categories})
+        category_id = self.request.GET.get('category_id')
+        if category_id:
+            selected_category = get_object_or_404(models.Category, id=category_id)
+            context.update({'selected_category': selected_category})
+        return context
 
 
 class PostDetailView(generic.DetailView):

@@ -3,6 +3,15 @@
 {% block title %}Welcome to BeBlEv{% endblock title %}
 
 {% block main %}
+    <form class="container-fluid">
+        <select id="category" required onchange='location = this.value;'">
+            <option value="">Select category...</option>
+            <option value="{% url 'posts' %}">All</option>
+            {% for category in categories %}
+                <option value="?category_id={{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+            </select>
+    </form>
     <article>
         <header>
             <form class="grid">
@@ -10,7 +19,7 @@
                 <button class="primary" type="submit">&#x1F373; Search</button>
             </form>
         </header>
-        
+
         {% for post in post_list %}
         <details>
             <summary><strong>{{ post.title }} by {{ post.author.get_full_name }}</strong></summary>

@@ -21,7 +21,18 @@
                 <li><a href="{% url 'index' %}">Home</a></li>
                 <li><a href="{% url 'authors' %}">Writers</a></li>
                 <li><a href="{% url 'posts' %}">Posts</a></li>
-                <li><button class="outline" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
+                {% if user.is_authenticated %}
+                    <li>
+                        {% if user.userprofile.avatar %}
+                            <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.userprofile.avatar.url }}"> 
+                        {% else %}
+                            <img style="width: 1.5rem; height: 1.5rem;" src="{% static 'blog/img/default_avatar.png' %}"> 
+                        {% endif %}   
+                        <a href="{% url 'author-detail' user.id %}">{{ user.get_full_name }}</a>
+                    </li>
+                {% else %}
+                    <li><button class="outline" data-target="modal-example" onClick="toggleModal(event)">Log in</button></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

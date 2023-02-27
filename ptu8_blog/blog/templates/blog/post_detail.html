@@ -26,5 +26,14 @@
     {% else %}
         <h3> No comments</h3>
     {% endif %}
+    {% if user.is_authenticated %}
+        <section>
+            <form id="from-write-comment">
+                <label for="comment">Write your comment:</label>
+                <textarea name="comment" rows="5"></textarea>
+                <button class="primary" type="submit">&#x1F4AC; Comment</button>
+            </form>
+        </section>
+    {% endif %}
 
 {% endblock main %}

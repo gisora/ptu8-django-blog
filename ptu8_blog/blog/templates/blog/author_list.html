@@ -15,11 +15,11 @@
         <details>
             <summary><strong>
                 {% if author.userprofile.avatar %}
-                    <img class="profileavatar" src="{{ author.userprofile.avatar.url }}">
+                    <img class="profileavatar" src="{{ author.userprofile.avatar.url }}"> 
                 {% else %}
-                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
+                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
                 {% endif %}
-                {{ author.get_full_name }} published {{ author.posts.count }} post(s)</strong></summary>
+                <span>&nbsp;{{ author.get_full_name }} published {{ author.posts.count }} post(s)</span></strong></summary>
             <ul>
                 {% for post in author.posts.all %}
                     <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
