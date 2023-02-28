@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
@@ -74,3 +75,14 @@ class AuthorDetailView(generic.DetailView):
     model = models.User
     template_name = 'blog/author_detail.html'
     context_object_name = "author"
+
+class AuthorPostsListView(LoginRequiredMixin, generic.ListView):
+    model = models.Post
+    template_name = 'blog/author_posts_list.html'
+    context_object_name = 'author_posts_list'
+    paginate_by = 10
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(author=self.request.user)
+        return qs

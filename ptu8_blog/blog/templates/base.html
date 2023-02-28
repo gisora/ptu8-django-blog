@@ -34,7 +34,7 @@
                             &nbsp;{{ user.get_full_name }}
                         </summary>
                             <ul role="listbox">
-                                <li><a href="{% url 'author-detail' user.id %}">&#x2712; Blog posts</a></li>
+                                <li><a href="{% url 'author-posts-list' %}">&#x2712; Blog posts</a></li>
                                 <li><a>&#x2699; Profile</a></li>
                                 {% if user.is_superuser or user.is_staff %}
                                 <li><a href="{% url 'admin:index' %}">&#x1F6E0; Admin</a></li>

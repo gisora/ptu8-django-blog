@@ -17,7 +17,7 @@ class Category(models.Model):
 class UserProfile(models.Model):
     user   = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('profile'))
     avatar = models.ImageField(_('avatar'), upload_to='blog/avatars/', null=True, blank=True)
-
+    about = models.TextField(_('about'), max_length=500, help_text=_('about text'))
 
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=255, db_index=True, help_text=_('post title'))
