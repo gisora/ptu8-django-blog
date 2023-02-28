@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}Login to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <h3>Enter your login information</h3>
+        <form id="login-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+                <mark>Error while logging in. Please try again.</mark><p></p>
+            
+                <label for="username">Please check username:</label>
+                <input id="username_input" type="text" name="username" placeholder="Username" aria-invalid="true"/>
+                <label for="password">Please ckeck password:</label>
+                <input type="password" name="password" placeholder="Password" aria-invalid="true"/>
+        
+            {% else %}
+                <input id="username_input" type="text" name="username" placeholder="Username"/>
+                <input type="password" name="password" placeholder="Password"/>
+            {% endif %}
+        </form>
+        <ul>
+            <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
+            <li><a href="{% url 'password_reset' %}">Create account</a></li>
+        </ul>
+        <footer>
+            <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>
+        </footer>
+    </article>
+{% endblock main %}

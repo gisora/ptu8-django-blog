@@ -10,9 +10,10 @@ class CommentInline(admin.TabularInline):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'display_full_name', 'created', 'updated', 'display_comments_count')
+    list_display = ('title', 'display_full_name', 'status', 'created', 'updated', 'display_comments_count')
     inlines = (CommentInline, )
-    list_filter = ('category', 'created')
+    list_filter = ('category', 'created', 'status')
+    list_editable = ('status',)
 
     fieldsets = (
         ('Heading', {'fields': ('title', ('author', 'status'))}),
