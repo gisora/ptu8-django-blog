@@ -5,9 +5,9 @@
 {% block main %}
     <article>
         <header class="grid">
-            <div class="container-fluid">
-                {% if user.userprofile.avatar %}
-                    <img class="profileavatar" src="{{ user.userprofile.avatar.url }}">
+            <div>
+                {% if user.profile.avatar %}
+                    <img class="profileavatar" src="{{ user.profile.avatar.url }}">
                 {% else %}
                     <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
                 {% endif %}
@@ -17,9 +17,7 @@
                 </hgroup>
             </div>
             <div>
-               
-                    <a role="button" href="">&#x2712; Write new post</a>
-               
+                <a role="button" href="">&#x2712; Write new post</a>
             </div>
         </header>
         <section>
