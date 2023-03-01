@@ -61,18 +61,20 @@ class Post(models.Model):
     
 
 class Comment(models.Model):
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='comments',
-        verbose_name=_('author')
-    )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
         related_name='comments',
         verbose_name=_('post')
     )
+     
+    commenter = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('commenter')
+    )
+   
     text = models.TextField(_('text'), max_length=1000, help_text=_('comments text'))
     posted = models.DateTimeField(_('posted'), auto_now_add=True, help_text=_('comment posted'))
 
@@ -80,4 +82,4 @@ class Comment(models.Model):
         ordering = ['posted']
 
     def __str__(self) -> str:
-        return f"{self.author} - {self.post} ({self.posted})"
+        return f"{self.commenter} - {self.post} ({self.posted})"

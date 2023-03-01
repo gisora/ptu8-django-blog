@@ -18,7 +18,7 @@
         <section id="comment-section">
             {% for comment in post.comments.all %}
                 <article class="comment-box">
-                    <p class="comment_header">Posted by {{ comment.author }} on {{ comment.posted }}</p>
+                    <p class="comment_header">Posted by {{ comment.commenter }} on {{ comment.posted }}</p>
                     <p class="comment_text">{{ comment.text }}</p>
                 </article>
             {% endfor %}
@@ -28,10 +28,10 @@
     {% endif %}
     {% if user.is_authenticated %}
         <section>
-            <form id="from-write-comment">
-                <label for="comment">Write your comment:</label>
-                <textarea name="comment" rows="5"></textarea>
-                <button class="primary" type="submit">&#x1F4AC; Comment</button>
+            <form method="post" action="{{ request.path }}">    
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="primary" type="submit">💬 Comment</button>
             </form>
         </section>
     {% endif %}

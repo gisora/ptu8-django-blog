@@ -27,12 +27,12 @@ class PostAdmin(admin.ModelAdmin):
     display_full_name.short_description = _('author')
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('author', 'display_email', 'post', 'posted')
+    list_display = ('commenter', 'display_email', 'post', 'posted')
     list_filter = ('posted',)
-    search_fields = ('author', 'display_email', 'post')
+    search_fields = ('commenter', 'display_email', 'post')
 
     def display_email(self, obj):
-        return obj.author.email
+        return obj.commenter.email
     display_email.short_description = _('email')
 
 # Register your models here.

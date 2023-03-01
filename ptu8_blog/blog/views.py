@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-# from django.http import HttpResponse
-from . import models
+from django.urls import reverse
+from . import models, forms
 
 # Create your views here.
 def index(request):
@@ -50,9 +51,36 @@ class PostListView(generic.ListView):
         return context
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(generic.edit.FormMixin, generic.DetailView):
     model = models.Post
     template_name = 'blog/post_detail.html'
+    form_class = forms.PostCommentForm
+
+    def get_success_url(self) -> str:
+        return reverse('post-detail', kwargs={'pk': self.get_object().id})
+
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['post'] = self.get_object()
+        initial['commenter'] = self.request.user
+        return initial
+
+    def form_valid(self, form):
+        form.instance.post = self.object
+        form.instance.commenter = self.request.user
+        form.save()
+        messages.success(self.request, 'Commment posted successfully')
+        return super().form_valid(form)
+
+
 
 class AuthorListView(generic.ListView):
     model = models.User
