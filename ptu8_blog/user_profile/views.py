@@ -3,7 +3,10 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+
+from .forms import UpdateUserForm, UpdateUserProfileForm
 
 User = get_user_model()
 
@@ -34,3 +37,20 @@ def register(request):
             messages.success(request, f'user {username} has been succesfully registered. You can log in now.')
             return redirect(reverse_lazy('login'))
     return render(request, 'user_profile/register.html')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='edit-user-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateUserProfileForm(instance=request.user.profile)
+
+    return render(request, 'user_profile/profile.html', {'user_form': user_form, 'profile_form': profile_form})

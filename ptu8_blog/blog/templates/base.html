@@ -25,8 +25,8 @@
                 {% if user.is_authenticated %}
                     <details role="list" >
                         <summary aria-haspopup="listbox" role="link">
-                            {% if user.userprofile.avatar %}
-                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.userprofile.avatar.url }}"> 
+                            {% if user.profile.avatar %}
+                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.profile.avatar.url }}"> 
                             {% else %}
                                 <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
                             {% endif %}   
@@ -35,7 +35,7 @@
                         </summary>
                             <ul role="listbox">
                                 <li><a href="{% url 'author-posts-list' %}">&#x2712; Blog posts</a></li>
-                                <li><a>&#x2699; Profile</a></li>
+                                <li><a href="{% url 'edit-user-profile' %}">&#x2699; Profile</a></li>
                                 {% if user.is_superuser or user.is_staff %}
                                 <li><a href="{% url 'admin:index' %}">&#x1F6E0; Admin</a></li>
                                 {% endif %}

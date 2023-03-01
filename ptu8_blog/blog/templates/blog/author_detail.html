@@ -6,8 +6,8 @@
     <article>
         <header class="grid">
             <div>
-                {% if author.userprofile.avatar %}
-                    <img class="profileavatar" src="{{ author.userprofile.avatar.url }}">
+                {% if author.profile.avatar %}
+                    <img class="profileavatar" src="{{ author.profile.avatar.url }}">
                 {% else %}
                     <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
                 {% endif %}
@@ -17,7 +17,7 @@
                 </hgroup>
             </div>
             <div>
-                <p>{{ author.userprofile.about }}</p>
+                <p>{{ author.profile.about }}</p>
             </div>
         </header>
         <section>

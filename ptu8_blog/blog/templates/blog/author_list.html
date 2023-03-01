@@ -14,8 +14,8 @@
         {% for author in authors_list %}
         <details>
             <summary><strong>
-                {% if author.userprofile.avatar %}
-                    <img class="profileavatar" src="{{ author.userprofile.avatar.url }}"> 
+                {% if author.profile.avatar %}
+                    <img class="profileavatar" src="{{ author.profile.avatar.url }}"> 
                 {% else %}
                     <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
                 {% endif %}
