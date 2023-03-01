@@ -30,7 +30,11 @@
         <section>
             <form method="post" action="{{ request.path }}">    
                 {% csrf_token %}
-                {{ form.as_p }}
+                <!-- {{ form.as_p }} -->
+                <label for="text">Write your comment:</label>
+                {{ form.text }}
+                {{ form.post }}
+                {{ form.commenter }}
                 <button class="primary" type="submit">💬 Comment</button>
             </form>
         </section>
