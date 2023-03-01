@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from tinymce import models as tinymce_models
 from django.utils.translation import gettext_lazy as _
 
+
+User = get_user_model()
 
 # Create your models here.
 class Category(models.Model):
@@ -10,12 +12,6 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-class UserProfile(models.Model):
-    user   = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('profile'))
-    avatar = models.ImageField(_('avatar'), upload_to='blog/avatars/', null=True, blank=True)
-
 
 class Post(models.Model):
     title = models.CharField(_('title'), max_length=255, db_index=True, help_text=_('post title'))
@@ -59,18 +55,20 @@ class Post(models.Model):
     
 
 class Comment(models.Model):
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='comments',
-        verbose_name=_('author')
-    )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
         related_name='comments',
         verbose_name=_('post')
     )
+     
+    commenter = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('commenter')
+    )
+   
     text = models.TextField(_('text'), max_length=1000, help_text=_('comments text'))
     posted = models.DateTimeField(_('posted'), auto_now_add=True, help_text=_('comment posted'))
 
@@ -78,4 +76,4 @@ class Comment(models.Model):
         ordering = ['posted']
 
     def __str__(self) -> str:
-        return f"{self.author} - {self.post} ({self.posted})"
+        return f"{self.commenter} - {self.post} ({self.posted})"

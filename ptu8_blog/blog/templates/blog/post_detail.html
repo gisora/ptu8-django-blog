@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}Welcome to BeBlEv{% endblock title %}
+{% block title %}BeBlEv: {{ post.title }}{% endblock title %}
 
 {% block main %}
     <article>
@@ -18,13 +18,26 @@
         <section id="comment-section">
             {% for comment in post.comments.all %}
                 <article class="comment-box">
-                    <p class="comment_header">Posted by {{ comment.author }} on {{ comment.posted }}</p>
+                    <p class="comment_header">Posted by {{ comment.commenter }} on {{ comment.posted }}</p>
                     <p class="comment_text">{{ comment.text }}</p>
                 </article>
             {% endfor %}
         </section>
     {% else %}
         <h3> No comments</h3>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <section>
+            <form method="post" action="{{ request.path }}">    
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+                <label for="text">Write your comment:</label>
+                {{ form.text }}
+                {{ form.post }}
+                {{ form.commenter }}
+                <button class="primary" type="submit">💬 Comment</button>
+            </form>
+        </section>
     {% endif %}
 
 {% endblock main %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}BeBlEv: Your posts{% endblock title %}
+
+{% block main %}
+    <article>
+        <header class="grid">
+            <div>
+                {% if user.profile.avatar %}
+                    <img class="profileavatar" src="{{ user.profile.avatar.url }}">
+                {% else %}
+                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
+                {% endif %}
+                <hgroup>
+                    <h1>{{ user.get_full_name }}</h1>
+                    <h2>{{ user.username }}</h2>
+                </hgroup>
+            </div>
+            <div>
+                <a role="button" href="">&#x2712; Write new post</a>
+            </div>
+        </header>
+        <section>
+
+            {% if author_posts_list.count > 0 %}
+            <h3> Total posts ({{ author_posts_list.count }})</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Updated</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in author_posts_list %}
+                        <tr>
+                            <td>{{ post.updated|date:"Y-m-d" }}</td>
+                            <td><a href="{% url 'post-detail' post.id %}">{{ post.title }}</td>
+                            <td>{{ post.get_status_display }}</td>
+                            <td>{{ post.comments.count }}</td>
+                            <td><a href="{% url 'post-detail' post.id %}">Edit</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <h3> Author have not posted yet</h3>
+            {% endif %}
+        </section>
+    </article>
+{% endblock main %}

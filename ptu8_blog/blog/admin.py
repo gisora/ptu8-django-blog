@@ -10,9 +10,10 @@ class CommentInline(admin.TabularInline):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'display_full_name', 'created', 'updated', 'display_comments_count')
+    list_display = ('title', 'display_full_name', 'status', 'created', 'updated', 'display_comments_count')
     inlines = (CommentInline, )
-    list_filter = ('category', 'created')
+    list_filter = ('category', 'created', 'status')
+    list_editable = ('status',)
 
     fieldsets = (
         ('Heading', {'fields': ('title', ('author', 'status'))}),
@@ -26,16 +27,15 @@ class PostAdmin(admin.ModelAdmin):
     display_full_name.short_description = _('author')
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('author', 'display_email', 'post', 'posted')
+    list_display = ('commenter', 'display_email', 'post', 'posted')
     list_filter = ('posted',)
-    search_fields = ('author', 'display_email', 'post')
+    search_fields = ('commenter', 'display_email', 'post')
 
     def display_email(self, obj):
-        return obj.author.email
+        return obj.commenter.email
     display_email.short_description = _('email')
 
 # Register your models here.
 admin.site.register(models.Category)
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Comment, CommentAdmin)
-admin.site.register(models.UserProfile)

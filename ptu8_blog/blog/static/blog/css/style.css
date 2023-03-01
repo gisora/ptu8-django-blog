@@ -51,7 +51,7 @@ article.comment-box>p.comment_text {
 }
 
 #themes button.theme-switcher i {
-    font-style: normal
+    font-style: normal;
 }
 
 dialog.example {
@@ -147,4 +147,35 @@ form.container-fluid > button.primary{
 .profileavatar {
     border-radius: 50%;
     height: 6rem;
+}
+
+div.alert {
+    position: absolute;
+    top: 10px;
+    left: 25%;    
+    min-width: 50%;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+div.alert.alert-success {background-color: #04AA6D;}
+div.alert.alert-info {background-color: #2196F3;}
+div.alert.alert-warning {background-color: #ff9800;}
+div.alert.alert-error {background-color: #f44336;}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: black;
 }
