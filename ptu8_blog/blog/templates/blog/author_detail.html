@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}Welcome to BeBlEv{% endblock title %}
+{% block title %}BeBlEv: {{ author.get_full_name }} posts{% endblock title %}
 
 {% block main %}
     <article>
