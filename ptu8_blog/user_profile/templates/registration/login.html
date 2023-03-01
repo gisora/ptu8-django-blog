@@ -16,13 +16,13 @@
                 <input type="password" name="password" placeholder="Password" aria-invalid="true"/>
         
             {% else %}
-                <input id="username_input" type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
+                <input id="username_input" type="text" name="username" placeholder="Username" value="{{ request.POST.username }}"/>
+                <input type="password" name="password" placeholder="Password" value="{{ request.POST.password }}"/>
             {% endif %}
         </form>
         <ul>
             <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
-            <li><a href="{% url 'password_reset' %}">Create account</a></li>
+            <li><a href="{% url 'register-account' %}">Create account</a></li>
         </ul>
         <footer>
             <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>

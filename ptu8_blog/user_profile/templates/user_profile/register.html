@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}Welcome to BeBlEv{% endblock title %}
+
+{% block main %}
+    <article>
+        <header>
+            <h1>New User Registration</h1>
+        </header>
+        <section>
+            <p>Please enter Your information below.</p>
+            <form method="post" action="{{ request.path }}">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" value="{{ request.POST.username }}">
+                <small>up to 100 symbols.</small>
+                
+                <input type="email" name="email" placeholder="Email" value="{{ request.POST.email }}">
+                
+                <input type="password" name="password1" placeholder="Password">
+                <small>minimum 8 symbols and cannot be only numbers, or match any part of username.</small>
+                
+                <input type="password" name="password2" placeholder="Confirm password">
+                
+                <button type="submit">Sign up</button>
+            </form>
+        </section>
+    </article>
+{% endblock main %}

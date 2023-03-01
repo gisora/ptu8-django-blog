@@ -64,7 +64,7 @@
             </form>
             <ul>
                 <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
-                <li><a href="{% url 'password_reset' %}">Create account</a></li>
+                <li><a href="{% url 'register-account' %}">Create account</a></li>
             </ul>
             <footer>
                 <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>
@@ -76,5 +76,19 @@
     </footer>
     <script src="https://picocss.com/docs/js/commons.min.js"></script>
     <script src="{% static 'blog/js/modal.js' %}"></script>
+    <!-- <script src="{% static 'blog/js/alert.js' %}"></script> -->
+
+
+    {% block messages %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endblock messages %}
+
 </body>
 </html>
