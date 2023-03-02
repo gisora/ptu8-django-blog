@@ -8,17 +8,20 @@ from django.urls import reverse, reverse_lazy
 from . import models, forms
 
 # Create your views here.
+
+
 def index(request):
     # posts = models.Post.objects.all()
     # posts = models.Post.objects.filter(status='p')
     paginator = Paginator(models.Post.objects.filter(status='p'), 2)
     page_number = request.GET.get('page')
     paged_posts = paginator.get_page(page_number)
-        
+
     context = {
         'posts': paged_posts,
     }
     return render(request, 'blog/index.html', context=context)
+
 
 class PostListView(generic.ListView):
     model = models.Post
@@ -26,8 +29,8 @@ class PostListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        qs =  super().get_queryset().filter(status='p')
-        
+        qs = super().get_queryset().filter(status='p')
+
         category_id = self.request.GET.get('category_id')
         if category_id:
             qs = qs.filter(category=category_id)
@@ -46,7 +49,8 @@ class PostListView(generic.ListView):
         context.update({'categories': categories})
         category_id = self.request.GET.get('category_id')
         if category_id:
-            selected_category = get_object_or_404(models.Category, id=category_id)
+            selected_category = get_object_or_404(
+                models.Category, id=category_id)
             context.update({'selected_category': selected_category})
         return context
 
@@ -81,7 +85,6 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
         return super().form_valid(form)
 
 
-
 class AuthorListView(generic.ListView):
     model = models.User
     template_name = 'blog/author_list.html'
@@ -89,12 +92,13 @@ class AuthorListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        qs =  super().get_queryset().annotate(num_posts=Count('posts')).filter(num_posts__gt=0)
+        qs = super().get_queryset().annotate(
+            num_posts=Count('posts')).filter(num_posts__gt=0)
         query = self.request.GET.get('search')
         if query:
             qs = qs.filter(
                 Q(first_name__icontains=query) |
-                Q(last_name__startswith=query) 
+                Q(last_name__startswith=query)
             )
         return qs
 
@@ -103,6 +107,7 @@ class AuthorDetailView(generic.DetailView):
     model = models.User
     template_name = 'blog/author_detail.html'
     context_object_name = "author"
+
 
 class AuthorPostsListView(LoginRequiredMixin, generic.ListView):
     model = models.Post
@@ -114,7 +119,7 @@ class AuthorPostsListView(LoginRequiredMixin, generic.ListView):
         qs = super().get_queryset()
         qs = qs.filter(author=self.request.user)
         return qs
-    
+
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Post
@@ -126,13 +131,15 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
         initial = super().get_initial()
         initial['status'] = 'd'
         if self.request.GET.get('post_id'):
-            initial['post'] = get_object_or_404(models.Post, id=self.request.GET.get('post_id'))
+            initial['post'] = get_object_or_404(
+                models.Post, id=self.request.GET.get('post_id'))
         return initial
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.status = 'd'
-        messages.success(self.request, f'Post "{form.instance.title}" successfully created.')
+        messages.success(
+            self.request, f'Post "{form.instance.title}" successfully created.')
         return super().form_valid(form)
 
 
@@ -144,11 +151,13 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Post "{form.instance.title}" successfully updated.')
+        messages.success(
+            self.request, f'Post "{form.instance.title}" successfully updated.')
         return super().form_valid(form)
-    
+
     def test_func(self):
         return self.get_object().author == self.request.user
+
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = models.Post
@@ -160,4 +169,20 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView
 
     def form_valid(self, form):
         messages.success(self.request, f'Post seccessfully deleted.')
+        return super().form_valid(form)
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = models.Comment
+    template_name = 'blog/comment_delete.html'
+    # success_url = reverse_lazy('post-detail')
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.get_object().post_id})
+
+    def test_func(self):
+        return (self.request.user.is_superuser or self.request.user.is_staff)
+
+    def form_valid(self, form):
+        messages.success(self.request, f'Comment seccessfully deleted.')
         return super().form_valid(form)

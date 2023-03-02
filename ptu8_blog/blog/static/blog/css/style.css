@@ -35,6 +35,11 @@ header {
 }
 
 article.comment-box {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+article.comment-box {
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -184,3 +189,4 @@ div.alert.alert-error {background-color: #f44336;}
 #create-post-status-label {
     margin-top: 20px;
 }
+
