@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% load static i18n %}
 {% block title %}BeBlEv: Your posts{% endblock title %}
-
+{% block head %}
+    <script>
+        function open_create_new_post(){
+            location.href="{% url 'create-new-post' %}";
+        }
+    </script>
+{% endblock head %}
 {% block main %}
     <article>
         <header class="grid">
@@ -17,7 +23,7 @@
                 </hgroup>
             </div>
             <div>
-                <a role="button" href="">&#x2712; Write new post</a>
+                <button type="button" onclick="open_create_new_post()">&#x2712; Write new post</button>
             </div>
         </header>
         <section>
@@ -31,7 +37,7 @@
                         <th>Title</th>
                         <th>Status</th>
                         <th>Comments</th>
-                        <th>Edit</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +47,9 @@
                             <td><a href="{% url 'post-detail' post.id %}">{{ post.title }}</td>
                             <td>{{ post.get_status_display }}</td>
                             <td>{{ post.comments.count }}</td>
-                            <td><a href="{% url 'post-detail' post.id %}">Edit</a></td>
+                            <td><a href="{% url 'update-post' post.id %}" data-tooltip="Edit">&#x1F4DD;</a>
+                                <a href="{% url 'delete-post' post.id %}" data-tooltip="Delete">&#x274C;</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

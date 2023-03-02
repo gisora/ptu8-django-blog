@@ -18,7 +18,17 @@
         <section id="comment-section">
             {% for comment in post.comments.all %}
                 <article class="comment-box">
-                    <p class="comment_header">Posted by {{ comment.commenter }} on {{ comment.posted }}</p>
+                    <p class="comment_header">
+                        {% if user.is_superuser or user.is_staff %}
+                            <a href="{% url 'delete-comment' comment.id %}" data-tooltip="Delete">&#x274C;</a>
+                        {% endif %}
+                        {% if comment.commenter.profile.avatar %}
+                            <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ comment.commenter.profile.avatar.url }}"> 
+                        {% else %}
+                            <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
+                        {% endif %}   
+                        <strong>{{ comment.commenter }}</strong> posted on {{ comment.posted|date:"Y-m-d H:i:s" }}
+                    </p>
                     <p class="comment_text">{{ comment.text }}</p>
                 </article>
             {% endfor %}

@@ -26,11 +26,17 @@ header {
     padding-bottom: 0px;
     margin-bottom: 80px;
     width: 100%;
+    z-index: 3;
 }
 
 #comment-section {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+article.comment-box {
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 article.comment-box {
@@ -150,7 +156,7 @@ form.container-fluid > button.primary{
 }
 
 div.alert {
-    position: absolute;
+    position: absolute; /*TODO pakeisti i fixed*/
     top: 10px;
     left: 25%;    
     min-width: 50%;
@@ -179,3 +185,8 @@ div.alert.alert-error {background-color: #f44336;}
 .closebtn:hover {
     color: black;
 }
+
+#create-post-status-label {
+    margin-top: 20px;
+}
+
