@@ -150,7 +150,7 @@ form.container-fluid > button.primary{
 }
 
 div.alert {
-    position: absolute;
+    position: absolute; /*TODO pakeisti i fixed*/
     top: 10px;
     left: 25%;    
     min-width: 50%;
@@ -178,4 +178,8 @@ div.alert.alert-error {background-color: #f44336;}
   
 .closebtn:hover {
     color: black;
+}
+
+#create-post-status-label {
+    margin-top: 20px;
 }

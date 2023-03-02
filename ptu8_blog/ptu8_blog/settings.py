@@ -145,7 +145,6 @@ EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 500,
-    'width': 1120,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'plugins': '''

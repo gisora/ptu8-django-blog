@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}BeBlEv: Write New Post{% endblock title %}
+{% block head %}
+    {{ form.media }}
+{% endblock head %}
+
+{% block main %}
+    <article>
+        <header>
+            <h1>Create new post</h1>
+        </header>
+        <form method="post" action="{{ request.path }}">
+            {% csrf_token %}
+            <label for="title">Title</label>
+            {{ form.title }}
+            
+            <label for="category">Select categories</label>
+            {{ form.category }}
+            
+            {{ form.text }}
+            
+            <label id="create-post-status-label" for="status">Change status</label>
+            {{ form.status }}
+            <button type="submit">Save</button>
+        </form>
+    </article>   
+{% endblock main %}

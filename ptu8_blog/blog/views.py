@@ -1,10 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from . import models, forms
 
 # Create your views here.
@@ -114,3 +114,50 @@ class AuthorPostsListView(LoginRequiredMixin, generic.ListView):
         qs = super().get_queryset()
         qs = qs.filter(author=self.request.user)
         return qs
+    
+
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
+    model = models.Post
+    template_name = 'blog/post_create_update.html'
+    fields = ('title', 'text', 'category', 'status')
+    success_url = reverse_lazy('author-posts-list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['status'] = 'd'
+        if self.request.GET.get('post_id'):
+            initial['post'] = get_object_or_404(models.Post, id=self.request.GET.get('post_id'))
+        return initial
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.status = 'd'
+        messages.success(self.request, f'Post "{form.instance.title}" successfully created.')
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = models.Post
+    template_name = 'blog/post_create_update.html'
+    fields = ('title', 'text', 'category', 'status')
+    success_url = reverse_lazy('author-posts-list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, f'Post "{form.instance.title}" successfully updated.')
+        return super().form_valid(form)
+    
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = models.Post
+    template_name = 'blog/post_delete.html'
+    success_url = reverse_lazy('author-posts-list')
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, f'Post seccessfully deleted.')
+        return super().form_valid(form)
