@@ -35,7 +35,7 @@ def register(request):
                 is_error = True
                 messages.error(request, str(e))
         if not is_error:
-            messages.success(request, _(f'user {username} has been succesfully registered. You can log in now.'))
+            messages.success(request, _("User has been succesfully registered. You can log in now."))
             return redirect(reverse_lazy('login'))
     return render(request, 'user_profile/register.html')
 
@@ -48,7 +48,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, _('Your profile is updated successfully'))
+            messages.success(request, _("Your profile is updated successfully."))
             return redirect(to='edit-user-profile')
     else:
         user_form = UpdateUserForm(instance=request.user)

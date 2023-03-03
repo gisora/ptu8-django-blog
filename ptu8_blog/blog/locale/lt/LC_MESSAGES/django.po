@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-03 11:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+#: .\blog\admin.py:27 .\blog\models.py:22
+msgid "author"
+msgstr "autorius"
+
+#: .\blog\admin.py:36
+msgid "email"
+msgstr "el. paštas"
+
+#: .\blog\models.py:11
+msgid "name"
+msgstr "pavadinimas"
+
+#: .\blog\models.py:17
+msgid "title"
+msgstr "pavadinimas"
+
+#: .\blog\models.py:17
+msgid "post title"
+msgstr "Straipsnio pavadinimas"
+
+#: .\blog\models.py:24 .\blog\models.py:72
+msgid "text"
+msgstr "tekstas"
+
+#: .\blog\models.py:24
+msgid "post text"
+msgstr "Straipsnio tekstas"
+
+#: .\blog\models.py:27
+msgid "select categories for this post"
+msgstr "pažymėkite straipsnio kategorijas"
+
+#: .\blog\models.py:28
+msgid "categories"
+msgstr "kategorijos"
+
+#: .\blog\models.py:30
+msgid "created"
+msgstr "sukurta"
+
+#: .\blog\models.py:30
+msgid "post created"
+msgstr "straipsnis sukurtas"
+
+#: .\blog\models.py:31
+msgid "updated"
+msgstr "atnaujinta"
+
+#: .\blog\models.py:31
+msgid "post updated"
+msgstr "straipsnis atnaujintas"
+
+#: .\blog\models.py:34
+msgid "draft"
+msgstr "juodraštis"
+
+#: .\blog\models.py:35
+msgid "published"
+msgstr "paskelbtas"
+
+#: .\blog\models.py:39
+msgid "status"
+msgstr "būsena"
+
+#: .\blog\models.py:43
+msgid "Change post status"
+msgstr "Pakeisti straipsnio būsena"
+
+#: .\blog\models.py:48
+msgid "comments count"
+msgstr "komentarų skaičius"
+
+#: .\blog\models.py:62
+msgid "post"
+msgstr "straipsnis"
+
+#: .\blog\models.py:69
+msgid "commenter"
+msgstr "komentaro autorius"
+
+#: .\blog\models.py:72
+msgid "comments text"
+msgstr "komentaras"
+
+#: .\blog\models.py:73
+msgid "posted"
+msgstr "paskelbtas"
+
+#: .\blog\models.py:73
+msgid "comment posted"
+msgstr "komentaras paskelbtas"
+
+#: .\blog\templates\base.html:22
+msgid "home"
+msgstr "pradinis"
+
+#: .\blog\templates\base.html:23
+msgid "writers"
+msgstr "rašytojai"
+
+#: .\blog\templates\base.html:24
+msgid "posts"
+msgstr "Straipsniai"
+
+#: .\blog\templates\base.html:38
+msgid "blog posts"
+msgstr "straipsnis"
+
+#: .\blog\templates\base.html:39
+msgid "profile"
+msgstr "profilis"
+
+#: .\blog\templates\base.html:41
+msgid "admin"
+msgstr "administratorius"
+
+#: .\blog\templates\base.html:43
+msgid "logout"
+msgstr "atsijungti"
+
+#: .\blog\templates\base.html:47
+msgid "log in"
+msgstr "prisijungti"
+
+#: .\blog\templates\base.html:60
+msgid "enter your login information"
+msgstr "įveskite savo prisijungimo informaciją"
+
+#: .\blog\templates\base.html:67
+msgid "forgot password"
+msgstr "pamiršau slaptažodį"
+
+#: .\blog\templates\base.html:68
+msgid "create account"
+msgstr "sukurti paskyrą"
+
+#: .\blog\templates\base.html:71
+msgid "login"
+msgstr "prisijungti"
+
+#: .\blog\templates\blog\index.html:16 .\blog\templates\blog\post_list.html:27
+msgid "continue reading"
+msgstr "skaityti visą"
+
+#: .\blog\templates\blog\post_detail.html:37
+msgid "no comments"
+msgstr "komentarų nėra"
+
+#: .\blog\templates\blog\post_detail.html:44
+msgid "write your comment"
+msgstr "parašykite komentarą"
+
+#: .\blog\templates\blog\post_detail.html:48
+msgid "comment"
+msgstr "paskelbti"
+
+#: .\blog\templates\blog\post_list.html:13
+msgid "or filter by category"
+msgstr "arba atrinkti pagal kategorija"
+
+#: .\blog\templates\blog\post_list.html:15
+msgid "select category"
+msgstr "pasirinktite kategoriją"
+
+#: .\blog\views.py:85
+msgid "Commment posted successfully"
+msgstr "Komentaras sėkmingai paskelbtas"
+
+#: .\blog\views.py:172
+msgid "Post seccessfully deleted."
+msgstr "Straipsnis sėkmingai ištrintas"
+
+#: .\blog\views.py:188
+msgid "Comment seccessfully deleted."
+msgstr "Komentaras sėkmingai ištrintas"

@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}Login to BeBlEv{% endblock title %}
+{% block title %} BeBlEv: {% trans "log in"|capfirst %}{% endblock title %}
 
 {% block main %}
     <article>
-        <h3>Enter your login information</h3>
+        <h3>{% trans "Enter your login information" %}</h3>
         <form id="login-form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {% if form.errors %}
-                <mark>Error while logging in. Please try again.</mark><p></p>
+                <mark>{% trans "Error while logging in. Please try again." %}</mark><p></p>
             
-                <label for="username">Please check username:</label>
+                <label for="username">{% trans "Please check username" %}:</label>
                 <input id="username_input" type="text" name="username" placeholder="Username" aria-invalid="true"/>
-                <label for="password">Please ckeck password:</label>
+                <label for="password">{% trans "Please ckeck password" %}:</label>
                 <input type="password" name="password" placeholder="Password" aria-invalid="true"/>
         
             {% else %}
-                <input id="username_input" type="text" name="username" placeholder="Username" value="{{ request.POST.username }}"/>
-                <input type="password" name="password" placeholder="Password" value="{{ request.POST.password }}"/>
+                <input id="username_input" type="text" name="username" placeholder="{% trans 'username'|capfirst %}" value="{{ request.POST.username }}"/>
+                <input type="password" name="password" placeholder="{% trans 'password'|capfirst %}" value=""/>
             {% endif %}
         </form>
         <ul>
-            <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
-            <li><a href="{% url 'register-account' %}">Create account</a></li>
+            <li><a href="{% url 'password_reset' %}">{% trans "forgot password"|capfirst %}</a></li>
+            <li><a href="{% url 'register-account' %}">{% trans "create account"|capfirst %}</a></li>
         </ul>
         <footer>
-            <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>
+            <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">{% trans "login"|capfirst %}</button>
         </footer>
     </article>
 {% endblock main %}

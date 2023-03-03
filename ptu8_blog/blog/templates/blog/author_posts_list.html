@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}BeBlEv: Your posts{% endblock title %}
+{% block title %}BeBlEv: {% trans "Your posts" %}{% endblock title %}
 {% block head %}
     <script>
         function open_create_new_post(){
@@ -23,21 +23,21 @@
                 </hgroup>
             </div>
             <div>
-                <button type="button" onclick="open_create_new_post()">&#x2712; Write new post</button>
+                <button type="button" onclick="open_create_new_post()">&#x2712; {% trans "Create new post" %}</button>
             </div>
         </header>
         <section>
 
             {% if author_posts_list.count > 0 %}
-            <h3> Total posts ({{ author_posts_list.count }})</h3>
+            <h3> {% trans "Total posts" %} ({{ author_posts_list.count }})</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Updated</th>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Comments</th>
-                        <th>Action</th>
+                        <th>{% trans "updated"|capfirst %}</th>
+                        <th>{% trans "title"|capfirst %}</th>
+                        <th>{% trans "status"|capfirst %}</th>
+                        <th>{% trans "comments"|capfirst %}</th>
+                        <th>{% trans "action"|capfirst %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,15 +47,15 @@
                             <td><a href="{% url 'post-detail' post.id %}">{{ post.title }}</td>
                             <td>{{ post.get_status_display }}</td>
                             <td>{{ post.comments.count }}</td>
-                            <td><a href="{% url 'update-post' post.id %}" data-tooltip="Edit">&#x1F4DD;</a>
-                                <a href="{% url 'delete-post' post.id %}" data-tooltip="Delete">&#x274C;</a>
+                            <td><a href="{% url 'update-post' post.id %}" data-tooltip="{% trans 'edit'|capfirst %}">&#x1F4DD;</a>
+                                <a href="{% url 'delete-post' post.id %}" data-tooltip="{% trans 'delete'|capfirst %}">&#x274C;</a>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
             {% else %}
-                <h3> Author have not posted yet</h3>
+                <h3> {% trans "Author have not posted yet" %}</h3>
             {% endif %}
         </section>
     </article>

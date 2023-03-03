@@ -1,6 +1,6 @@
 {% if page_obj.has_other_pages %}
     <center>
-        page: 
+        {% trans "page" %}: 
         {% for page in page_obj.paginator.page_range %}
             {% if page_obj.number == page %}
                 <span class="current">{{ page }}</span>
