@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 11:03+0200\n"
+"POT-Creation-Date: 2023-03-03 14:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,8 @@ msgstr "el. paštas"
 msgid "name"
 msgstr "pavadinimas"
 
-#: .\blog\models.py:17
+#: .\blog\models.py:17 .\blog\templates\blog\author_posts_list.html:37
+#: .\blog\templates\blog\post_create_update.html:15
 msgid "title"
 msgstr "pavadinimas"
 
@@ -64,7 +65,7 @@ msgstr "sukurta"
 msgid "post created"
 msgstr "straipsnis sukurtas"
 
-#: .\blog\models.py:31
+#: .\blog\models.py:31 .\blog\templates\blog\author_posts_list.html:36
 msgid "updated"
 msgstr "atnaujinta"
 
@@ -76,11 +77,11 @@ msgstr "straipsnis atnaujintas"
 msgid "draft"
 msgstr "juodraštis"
 
-#: .\blog\models.py:35
+#: .\blog\models.py:35 .\blog\templates\blog\author_list.html:22
 msgid "published"
 msgstr "paskelbtas"
 
-#: .\blog\models.py:39
+#: .\blog\models.py:39 .\blog\templates\blog\author_posts_list.html:38
 msgid "status"
 msgstr "būsena"
 
@@ -112,57 +113,191 @@ msgstr "paskelbtas"
 msgid "comment posted"
 msgstr "komentaras paskelbtas"
 
-#: .\blog\templates\base.html:22
+#: .\blog\templates\base.html:36
 msgid "home"
 msgstr "pradinis"
 
-#: .\blog\templates\base.html:23
+#: .\blog\templates\base.html:37
 msgid "writers"
-msgstr "rašytojai"
+msgstr "Autoriai"
 
-#: .\blog\templates\base.html:24
+#: .\blog\templates\base.html:38 .\blog\templates\blog\author_detail.html:3
 msgid "posts"
 msgstr "Straipsniai"
 
-#: .\blog\templates\base.html:38
+#: .\blog\templates\base.html:52
 msgid "blog posts"
 msgstr "straipsnis"
 
-#: .\blog\templates\base.html:39
+#: .\blog\templates\base.html:53
 msgid "profile"
 msgstr "profilis"
 
-#: .\blog\templates\base.html:41
+#: .\blog\templates\base.html:55
 msgid "admin"
 msgstr "administratorius"
 
-#: .\blog\templates\base.html:43
+#: .\blog\templates\base.html:57
 msgid "logout"
 msgstr "atsijungti"
 
-#: .\blog\templates\base.html:47
+#: .\blog\templates\base.html:61
 msgid "log in"
 msgstr "prisijungti"
 
-#: .\blog\templates\base.html:60
+#: .\blog\templates\base.html:74
 msgid "enter your login information"
 msgstr "įveskite savo prisijungimo informaciją"
 
-#: .\blog\templates\base.html:67
+#: .\blog\templates\base.html:77
+msgid "username"
+msgstr "prisijungimo vardas"
+
+#: .\blog\templates\base.html:78
+msgid "password"
+msgstr "slaptažodis"
+
+#: .\blog\templates\base.html:81
 msgid "forgot password"
 msgstr "pamiršau slaptažodį"
 
-#: .\blog\templates\base.html:68
+#: .\blog\templates\base.html:82
 msgid "create account"
 msgstr "sukurti paskyrą"
 
-#: .\blog\templates\base.html:71
+#: .\blog\templates\base.html:85
 msgid "login"
 msgstr "prisijungti"
+
+#: .\blog\templates\blog\author_detail.html:25
+msgid "total posts"
+msgstr "staipsnių skaičius"
+
+#: .\blog\templates\blog\author_detail.html:32
+#: .\blog\templates\blog\author_posts_list.html:58
+msgid "Author have not posted yet"
+msgstr "Autorius neparašė straipsnių"
+
+#: .\blog\templates\blog\author_list.html:3
+msgid "List of authors"
+msgstr "Autorių sąrašas"
+
+#: .\blog\templates\blog\author_list.html:9
+msgid "Search for authors"
+msgstr "Ieškoti autorių"
+
+#: .\blog\templates\blog\author_list.html:10
+#: .\blog\templates\blog\post_list.html:10
+msgid "search"
+msgstr "ieškoti"
+
+#: .\blog\templates\blog\author_list.html:22
+#, fuzzy
+#| msgid "posts"
+msgid "post(s)"
+msgstr "Straipsniai"
+
+#: .\blog\templates\blog\author_posts_list.html:3
+msgid "Your posts"
+msgstr "Jūsų straipsniai"
+
+#: .\blog\templates\blog\author_posts_list.html:26
+#: .\blog\templates\blog\post_create_update.html:3
+#: .\blog\templates\blog\post_create_update.html:11
+msgid "Create new post"
+msgstr "Sukurti naują straipsnį"
+
+#: .\blog\templates\blog\author_posts_list.html:32
+msgid "Total posts"
+msgstr "Straipsnių skaičius"
+
+#: .\blog\templates\blog\author_posts_list.html:39
+#: .\blog\templates\blog\post_detail.html:17
+msgid "comments"
+msgstr "komentarai"
+
+#: .\blog\templates\blog\author_posts_list.html:40
+msgid "action"
+msgstr "veiksmas"
+
+#: .\blog\templates\blog\author_posts_list.html:50
+msgid "edit"
+msgstr "redaguoti"
+
+#: .\blog\templates\blog\author_posts_list.html:51
+msgid "delete"
+msgstr "ištrinti"
+
+#: .\blog\templates\blog\comment_delete.html:3
+msgid "Delete comment"
+msgstr "Ištrinti komentarą"
+
+#: .\blog\templates\blog\comment_delete.html:15
+msgid "Do You really want to delete this comment?"
+msgstr "Ar tikrai norite ištrinti šį komentarą?"
+
+#: .\blog\templates\blog\comment_delete.html:19
+msgid "Posted by"
+msgstr "Autorius"
+
+#: .\blog\templates\blog\comment_delete.html:19
+#: .\blog\templates\blog\index.html:12
+#: .\blog\templates\blog\post_detail.html:10
+msgid "on"
+msgstr "publikavimo data"
+
+#: .\blog\templates\blog\comment_delete.html:28
+#: .\blog\templates\blog\post_delete.html:21
+msgid "cancel"
+msgstr "atšaukti"
+
+#: .\blog\templates\blog\comment_delete.html:29
+#: .\blog\templates\blog\post_delete.html:22
+msgid "confirm"
+msgstr "patvirtinti"
+
+#: .\blog\templates\blog\index.html:3
+msgid "Welcome to BeBlEv"
+msgstr "Sveiki atvyke į BeBlEv"
+
+#: .\blog\templates\blog\index.html:12
+#: .\blog\templates\blog\post_detail.html:10
+msgid "By"
+msgstr "Autorius"
 
 #: .\blog\templates\blog\index.html:16 .\blog\templates\blog\post_list.html:27
 msgid "continue reading"
 msgstr "skaityti visą"
+
+#: .\blog\templates\blog\post_create_update.html:18
+#, fuzzy
+#| msgid "select category"
+msgid "Select categories"
+msgstr "pasirinkite kategoriją"
+
+#: .\blog\templates\blog\post_create_update.html:23
+#, fuzzy
+#| msgid "Change post status"
+msgid "Change status"
+msgstr "Pakeisti straipsnio būsena"
+
+#: .\blog\templates\blog\post_create_update.html:25
+msgid "save"
+msgstr "išsaugoti"
+
+#: .\blog\templates\blog\post_delete.html:3
+msgid "Confirm post delete"
+msgstr "Patvirtinti straipsnio ištrinimą"
+
+#: .\blog\templates\blog\post_delete.html:15
+msgid "Do You really want to delete post"
+msgstr "Ar tikrai norite ištrinti šį straipsnį"
+
+#: .\blog\templates\blog\post_detail.html:30
+#, fuzzy
+#| msgid "posted"
+msgid "posted on"
+msgstr "paskelbtas"
 
 #: .\blog\templates\blog\post_detail.html:37
 msgid "no comments"
@@ -175,6 +310,12 @@ msgstr "parašykite komentarą"
 #: .\blog\templates\blog\post_detail.html:48
 msgid "comment"
 msgstr "paskelbti"
+
+#: .\blog\templates\blog\post_list.html:9
+#, fuzzy
+#| msgid "Search for authors"
+msgid "Search for posts"
+msgstr "Ieškoti autorių"
 
 #: .\blog\templates\blog\post_list.html:13
 msgid "or filter by category"
