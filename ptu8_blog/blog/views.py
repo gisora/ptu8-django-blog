@@ -138,7 +138,7 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.status = 'd'
+        # form.instance.status = 'd'
         messages.success(
             self.request, _(f'Post "{form.instance.title}" successfully created.'))
         return super().form_valid(form)
