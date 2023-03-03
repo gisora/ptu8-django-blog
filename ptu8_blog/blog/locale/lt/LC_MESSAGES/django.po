@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 14:30+0200\n"
+"POT-Creation-Date: 2023-03-03 14:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,6 +310,12 @@ msgstr "parašykite komentarą"
 #: .\blog\templates\blog\post_detail.html:48
 msgid "comment"
 msgstr "paskelbti"
+
+#: .\blog\templates\blog\post_list.html:3
+#, fuzzy
+#| msgid "List of authors"
+msgid "List of posts"
+msgstr "Autorių sąrašas"
 
 #: .\blog\templates\blog\post_list.html:9
 #, fuzzy

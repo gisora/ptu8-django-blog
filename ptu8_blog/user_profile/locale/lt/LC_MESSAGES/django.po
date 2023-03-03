@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 14:06+0200\n"
+"POT-Creation-Date: 2023-03-03 14:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,7 @@ msgstr ""
 "1 : n % 1 != 0 ? 2: 3);\n"
 
 #: .\user_profile\apps.py:7
+#: .\user_profile\templates\user_profile\profile.html:3
 msgid "User profile"
 msgstr "Naudotojo profilis"
 
@@ -152,6 +153,10 @@ msgstr "Įveskite savo el. pašto adresą"
 #: .\user_profile\templates\registration\password_reset_form.html:20
 msgid "password reset"
 msgstr "slaptažodžio atkurimas"
+
+#: .\user_profile\templates\user_profile\profile.html:25
+msgid "update"
+msgstr "atnaujinti"
 
 #: .\user_profile\views.py:24
 msgid "Password do not match or were not entered."
