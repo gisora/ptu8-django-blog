@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import gettext_lazy as _
 
 from .forms import UpdateUserForm, UpdateUserProfileForm
 
@@ -20,13 +21,13 @@ def register(request):
         is_error = False
         if len(password1) == 0 or password1 != password2:
             is_error = True
-            messages.error(request, "Password do not match or were not entered.")
+            messages.error(request, _("Password do not match or were not entered."))
         if len(username) == 0 or User.objects.filter(username=username).exists():
             is_error = True
-            messages.error(request, "Username already taken or was not entered.")
+            messages.error(request, _("Username already taken or was not entered."))
         if len(email) == 0 or User.objects.filter(email=email).exists():
             is_error = True
-            messages.error(request, "User with this email already exists, or email was not entered.")
+            messages.error(request, _("User with this email already exists, or email was not entered."))
         if not is_error:            
             try:
                 User.objects.create_user(username=username, email=email, password=password1)
@@ -34,7 +35,7 @@ def register(request):
                 is_error = True
                 messages.error(request, str(e))
         if not is_error:
-            messages.success(request, f'user {username} has been succesfully registered. You can log in now.')
+            messages.success(request, _(f'user {username} has been succesfully registered. You can log in now.'))
             return redirect(reverse_lazy('login'))
     return render(request, 'user_profile/register.html')
 
@@ -47,7 +48,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
+            messages.success(request, _('Your profile is updated successfully'))
             return redirect(to='edit-user-profile')
     else:
         user_form = UpdateUserForm(instance=request.user)

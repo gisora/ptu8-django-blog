@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from . import models, forms
 
 # Create your views here.
@@ -81,7 +82,7 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
         form.instance.post = self.object
         form.instance.commenter = self.request.user
         form.save()
-        messages.success(self.request, 'Commment posted successfully')
+        messages.success(self.request, _('Commment posted successfully'))
         return super().form_valid(form)
 
 
@@ -137,9 +138,9 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.status = 'd'
+        # form.instance.status = 'd'
         messages.success(
-            self.request, f'Post "{form.instance.title}" successfully created.')
+            self.request, _(f'Post "{form.instance.title}" successfully created.'))
         return super().form_valid(form)
 
 
@@ -152,7 +153,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
     def form_valid(self, form):
         form.instance.author = self.request.user
         messages.success(
-            self.request, f'Post "{form.instance.title}" successfully updated.')
+            self.request, _(f'Post "{form.instance.title}" successfully updated.'))
         return super().form_valid(form)
 
     def test_func(self):
@@ -168,7 +169,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView
         return self.get_object().author == self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, f'Post seccessfully deleted.')
+        messages.success(self.request, _(f'Post seccessfully deleted.'))
         return super().form_valid(form)
 
 
@@ -184,5 +185,5 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteV
         return (self.request.user.is_superuser or self.request.user.is_staff)
 
     def form_valid(self, form):
-        messages.success(self.request, f'Comment seccessfully deleted.')
+        messages.success(self.request, _(f'Comment seccessfully deleted.'))
         return super().form_valid(form)
