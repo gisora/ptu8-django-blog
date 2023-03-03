@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 14:48+0200\n"
+"POT-Creation-Date: 2023-03-03 15:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,10 +63,12 @@ msgid "Please ckeck password"
 msgstr "Patikrinkite slaptažodį"
 
 #: .\user_profile\templates\registration\login.html:19
+#: .\user_profile\templates\user_profile\register.html:14
 msgid "username"
 msgstr "prisijungimo vardas"
 
 #: .\user_profile\templates\registration\login.html:20
+#: .\user_profile\templates\user_profile\register.html:19
 msgid "password"
 msgstr "slaptažodis"
 
@@ -157,6 +159,40 @@ msgstr "slaptažodžio atkurimas"
 #: .\user_profile\templates\user_profile\profile.html:25
 msgid "update"
 msgstr "atnaujinti"
+
+#: .\user_profile\templates\user_profile\register.html:3
+#: .\user_profile\templates\user_profile\register.html:8
+msgid "New User Registration"
+msgstr "Naujos paskyros registracija"
+
+#: .\user_profile\templates\user_profile\register.html:11
+#, fuzzy
+#| msgid "Enter your login information"
+msgid "Please enter Your information below."
+msgstr "Įveskite prisijungimo informaciją"
+
+#: .\user_profile\templates\user_profile\register.html:15
+msgid "up to 100 symbols."
+msgstr "iki 100 simbolių."
+
+#: .\user_profile\templates\user_profile\register.html:17
+msgid "email"
+msgstr "el. paštas"
+
+#: .\user_profile\templates\user_profile\register.html:20
+msgid ""
+"minimum 8 symbols and cannot be only numbers, or match any part of username."
+msgstr "ne mažiau 8 simbolių, nėra sudarytas tik iš skaičių ar buti sudarytas iš naudotojo vardo."
+
+#: .\user_profile\templates\user_profile\register.html:22
+#, fuzzy
+#| msgid "forgot password"
+msgid "confirm password"
+msgstr "pamiršau slaptažodį"
+
+#: .\user_profile\templates\user_profile\register.html:24
+msgid "sign up"
+msgstr "užsiregistruoti"
 
 #: .\user_profile\views.py:24
 msgid "Password do not match or were not entered."
