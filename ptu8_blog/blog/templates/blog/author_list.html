@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}BeBlEv: List of authors{% endblock title %}
+
+{% block main %}
+    <article>
+        <header>
+            <form class="grid">
+                <input type="search" name="search" placeholder="Search for authors" />
+                <button class="primary" type="submit">&#x1F373; Search</button>
+            </form>
+        </header>
+        
+        {% for author in authors_list %}
+        <details>
+            <summary><strong>
+                {% if author.profile.avatar %}
+                    <img class="profileavatar" src="{{ author.profile.avatar.url }}"> 
+                {% else %}
+                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
+                {% endif %}
+                <span>&nbsp;{{ author.get_full_name }} published {{ author.posts.count }} post(s)</span></strong></summary>
+            <ul>
+                {% for post in author.posts.all %}
+                    <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </details>
+        {% endfor %}
+    </article>
+    {% include 'blog/includes/paginator.html' %}
+{% endblock main %}

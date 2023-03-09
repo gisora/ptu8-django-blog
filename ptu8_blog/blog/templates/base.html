@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static i18n %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+    {% block head %}{% endblock head %}
+</head>
+
+<body>
+    <header id="top-header" class="container-fluid">
+        <nav class="container">
+            <ul>
+                <li><strong><img src="{% static 'blog/img/logo.png' %}"></strong></li>
+            </ul>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'authors' %}">Writers</a></li>
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li>
+                {% if user.is_authenticated %}
+                    <details role="list" >
+                        <summary aria-haspopup="listbox" role="link">
+                            {% if user.profile.avatar %}
+                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{{ user.profile.avatar.url }}"> 
+                            {% else %}
+                                <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
+                            {% endif %}   
+                            <!-- <a href="{% url 'author-detail' user.id %}">{{ user.get_full_name }}</a> -->
+                            &nbsp;{{ user.get_full_name }}
+                        </summary>
+                            <ul role="listbox">
+                                <li><a href="{% url 'author-posts-list' %}">&#x2712; Blog posts</a></li>
+                                <li><a href="{% url 'edit-user-profile' %}">&#x2699; Profile</a></li>
+                                {% if user.is_superuser or user.is_staff %}
+                                <li><a href="{% url 'admin:index' %}">&#x1F6E0; Admin</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'logout' %}">&#x1F510; Logout</a></li>
+                            </ul>
+                    </details>
+                {% else %}
+                    <button class="outline" data-target="modal-login" onClick="toggleModal(event)">Log in</button>
+                {% endif %}
+            </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        {% block main %}
+        {% endblock main %}
+    </main>
+    <dialog id="modal-login">
+        <article>
+            <a href="#close" aria-label="Close" class="close" data-target="modal-login" onClick="toggleModal(event)"></a>
+            <h3>Enter your login information</h3>
+            <form id="login-form" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username"/>
+                <input type="password" name="password" placeholder="Password"/>
+            </form>
+            <ul>
+                <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
+                <li><a href="{% url 'register-account' %}">Create account</a></li>
+            </ul>
+            <footer>
+                <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>
+            </footer>
+        </article>
+    </dialog>
+    <footer class="container">
+        &copy; 2023, BeBlEv Inc.
+    </footer>
+    <script src="https://picocss.com/docs/js/commons.min.js"></script>
+    <script src="{% static 'blog/js/modal.js' %}"></script>
+
+    {% block messages %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endblock messages %}
+
+</body>
+</html>

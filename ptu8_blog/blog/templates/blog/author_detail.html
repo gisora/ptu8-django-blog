@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}BeBlEv: {{ author.get_full_name }} posts{% endblock title %}
+
+{% block main %}
+    <article>
+        <header class="grid">
+            <div>
+                {% if author.profile.avatar %}
+                    <img class="profileavatar" src="{{ author.profile.avatar.url }}">
+                {% else %}
+                    <img class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}">
+                {% endif %}
+                <hgroup>
+                    <h1>{{ author.get_full_name }}</h1>
+                    <h2>{{ author.username }}</h2>
+                </hgroup>
+            </div>
+            <div>
+                <p>{{ author.profile.about }}</p>
+            </div>
+        </header>
+        <section>
+            {% if author.posts.count > 0 %}
+            <h3> Total posts ({{ author.posts.count }})</h3>
+            <ol>
+                {% for post in author.posts.all %}
+                <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <h3> Author have not posted yet</h3>
+            {% endif %}
+        </section>
+    </article>
+{% endblock main %}
