@@ -1,0 +1,49 @@
+version: "3.7"  # nurodome suderinamo docker-compose versiją
+services:       # services yra konteinerių sąrašas
+  blog:          # konfigūruojame konteinerį pavadinimu web
+    # build komanda nudorome, kad iš kuriame kataloge (šiuo atveju iš esančio katalogo, .) esančio Dockerfile statyti konteinerį
+    build: .
+    # paveiksliuko (docker image) pavadinimas
+    image: ptu8-blog
+    # konteinerio pavadinimas
+    container_name: ptu8.blog
+    # parametras tty nurodo, ar konteineris gali naudotis linux subsistemos serijinės sąsajos TeleTYpewriter savybėmis, kurių iš esmės reikia komandinei eilutei funkcionuoti. Tuo pačiu atidarom ir stdin - komandinės eilutės įvedimo funkciją, kurią gali tekti prireikti naudoti pvz. su python input() funkcija.
+    tty: true
+    stdin_open: true
+    # restart komanda nurodo sąlygas, kada perkrauti konteinerį jam išsijungus. Produkcinėje aplinkoje tai turėtų būti always. 
+    restart: always
+    # kokias komandas vykdyti paleidžiant konteinerį. Šios eilutės nereikia, jeigu Dockerfile yra COMMAND.
+    # command: >
+    #   bash -c "./projektas/manage.py migrate &&
+    #            ./projektas/manage.py runserver 0.0.0.0:8000"
+    # # tinklo konfigūracija
+    ports:
+      - 8000:8000
+    # volumes - disko sąsaja, kur konteineris sinchronizuos savo failus su realiais diske esančiais failais. Šių failų nereikės kopijuoti su cp. Taip pat panašiai sinchronizuosime ir `static` bei `media` katalogus su nginx konteineriu.
+    volumes:
+      - ./ptu8_blog:/app
+    # vykdome komandas startuojant konteineriui, o ne konstruojant to konteinerio paveiksliuką (image). Rekomenduojame šias komandas iš Dockerfile pašalinti arba užkomentuoti.
+    command: >
+      bash -c "python manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            gunicorn ptu8_blog.wsgi --bind 0.0.0.0:8000"
+  nginx:           # Nginx konteineris
+    # surenkame nginx konteinerį su mūsų projekto .conf
+    build: ./nginx/
+    # savo surinkto nginx image paveiksliuko pavadinimas ir tagas
+    image: nginx:blog
+    # konteinerio pavadinimas
+    container_name: ptu8.nginx
+    # jeigu konteineris pakibtų, jį visada perkrausime
+    restart: always
+    # kokius portus atidaryti - jeigu reikia, įtraukite ir SSL
+    ports:
+      - 80:80
+      # - 443:443
+    # nurodome tinklo sąsają su pagrindiniu projekto konteineriu `dev`.
+    links:
+      - blog:ptu8.blog
+    # sinchronizuojame failus tarp konteinerio ir projekto `static` ir `media` katalogų. Šiuo atveju, netgi padarius `python manage.py collectstatic` iš projekto `dev` konteinerio, `nginx` konteineryje atitinkami failai taip pat atsinaujins.
+    volumes:
+      - ./ptu8_blog/media:/app/media
+      - ./ptu8_blog/static:/app/static

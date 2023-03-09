@@ -8,4 +8,4 @@ COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "ptu8_blog.wsgi"]
+# CMD ["gunicorn", "-b", "0.0.0.0:8000", "ptu8_blog.wsgi"]
