@@ -191,3 +191,19 @@ div.alert.alert-error {background-color: #f44336;}
     margin-top: 20px;
 }
 
+#lang-select-div {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+#lang-select-div button {
+    border: none;
+    color: white;
+    background-color: transparent;
+    font-size: 0.75rem;
+}
+
+#lang-select-div button:active, button:focus {
+    box-shadow: none;
+}

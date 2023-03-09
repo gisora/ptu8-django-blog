@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}BeBlEv: {{ author.get_full_name }} posts{% endblock title %}
+{% block title %}BeBlEv: {{ author.get_full_name }} {% trans "posts" %}{% endblock title %}
 
 {% block main %}
     <article>
@@ -22,14 +22,14 @@
         </header>
         <section>
             {% if author.posts.count > 0 %}
-            <h3> Total posts ({{ author.posts.count }})</h3>
+            <h3> {% trans "total posts" %} ({{ author.posts.count }})</h3>
             <ol>
                 {% for post in author.posts.all %}
                 <li><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></li>
                 {% endfor %}
             </ol>
             {% else %}
-            <h3> Author have not posted yet</h3>
+            <h3> {% trans "Author have not posted yet" %}</h3>
             {% endif %}
         </section>
     </article>

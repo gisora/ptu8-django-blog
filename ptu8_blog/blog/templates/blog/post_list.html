@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}BeBlEv: List of posts{% endblock title %}
+{% block title %}BeBlEv: {% trans "List of posts" %}{% endblock title %}
 
 {% block main %}
     <article>
         <header>
             <form class="grid">
-                <input type="search" name="search" placeholder="Search for posts" value="{{ request.GET.search }}"/>
-                <button class="primary" type="submit">&#x1F373; Search</button>
+                <input type="search" name="search" placeholder="{% trans 'Search for posts' %}" value="{{ request.GET.search }}"/>
+                <button class="primary" type="submit">&#x1F373; {% trans "search"|capfirst %}</button>
             </form>
             
-            <label for="category">Or filter by category:</label>
+            <label for="category">{% trans "or filter by category"|capfirst %}:</label>
             <select id="category" required onchange='location = this.value;'">
-                <option value="{% url 'posts' %}">Select category...</option>
+                <option value="{% url 'posts' %}">{% trans "select category"|capfirst %}...</option>
                 {% for category in categories %}
                     <option value="?category_id={{ category.id }}" {% if category.id == selected_category.id %}selected="selected"{% endif %}>{{ category.name }}</option>
                 {% endfor %}
@@ -24,7 +24,7 @@
             <summary><strong>{{ post.title }} by {{ post.author.get_full_name }}</strong></summary>
             <section>
                 {{ post.text|safe|truncatewords:50 }}
-                <a href="{% url 'post-detail' post.id %}">Continue reading</a>
+                <a href="{% url 'post-detail' post.id %}">{% trans "continue reading"|capfirst %}</a>
              </section>
         </details>
         {% endfor %}

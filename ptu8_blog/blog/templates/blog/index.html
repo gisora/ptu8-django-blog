@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}Welcome to BeBlEv{% endblock title %}
+{% block title %}{% trans "Welcome to BeBlEv" %}{% endblock title %}
 
 {% block main %}
     {% for post in posts %}
@@ -9,18 +9,17 @@
         <header>
         <hgroup>
             <h1>{{ post.title }}</h1>
-            <h2>By <a href="authors/{{ post.author.id }}">{{ post.author.get_full_name }}</a> on {{ post.updated }} </h2>
+            <h2>{% trans "By" %} <a href="authors/{{ post.author.id }}">{{ post.author.get_full_name }}</a> {% trans "on" %} {{ post.updated }} </h2>
         </hgroup> 
     </header>
         <section>{{ post.text|safe|truncatewords:50 }}</section>
-        <footer><a href="posts/{{ post.id }}">[ Continue reading ]</a></footer>
+        <footer><a href="posts/{{ post.id }}">[ {% trans "continue reading"|capfirst %} ]</a></footer>
     </article>
        
     {% endfor %}
+    
     {% with posts as page_obj %}
         {% include 'blog/includes/paginator.html' %}
     {% endwith %}
-    
-    
 
 {% endblock main %}

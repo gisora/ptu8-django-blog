@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
 {% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <meta charset="UTF-8">
@@ -14,14 +16,26 @@
 
 <body>
     <header id="top-header" class="container-fluid">
+        <div id="lang-select-div">
+            <form action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ redirect_to }}">
+                    {% for lang in LANGUAGES %}
+                        {% if lang.0 != LANGUAGE_CODE %}
+                            <button type="submit" name="language" value="{{ lang.0 }}">&#x1F30E; {{ lang.1 }}</button> 
+                        {% endif %}
+                    {% endfor %}
+            </form>
+        </div>
+
         <nav class="container">
             <ul>
                 <li><strong><img src="{% static 'blog/img/logo.png' %}"></strong></li>
             </ul>
             <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'authors' %}">Writers</a></li>
-                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><a href="{% url 'index' %}">{% trans "home"|capfirst %}</a></li>
+                <li><a href="{% url 'authors' %}">{% trans "writers"|capfirst %}</a></li>
+                <li><a href="{% url 'posts' %}">{% trans "posts"|capfirst %}</a></li>
                 <li>
                 {% if user.is_authenticated %}
                     <details role="list" >
@@ -35,16 +49,16 @@
                             &nbsp;{{ user.get_full_name }}
                         </summary>
                             <ul role="listbox">
-                                <li><a href="{% url 'author-posts-list' %}">&#x2712; Blog posts</a></li>
-                                <li><a href="{% url 'edit-user-profile' %}">&#x2699; Profile</a></li>
+                                <li><a href="{% url 'author-posts-list' %}">&#x2712; {% trans "blog posts"|capfirst %}</a></li>
+                                <li><a href="{% url 'edit-user-profile' %}">&#x2699; {% trans "profile"|capfirst %}</a></li>
                                 {% if user.is_superuser or user.is_staff %}
-                                <li><a href="{% url 'admin:index' %}">&#x1F6E0; Admin</a></li>
+                                <li><a href="{% url 'admin:index' %}">&#x1F6E0; {% trans "admin"|capfirst %}</a></li>
                                 {% endif %}
-                                <li><a href="{% url 'logout' %}">&#x1F510; Logout</a></li>
+                                <li><a href="{% url 'logout' %}">&#x1F510; {% trans "logout"|capfirst %}</a></li>
                             </ul>
                     </details>
                 {% else %}
-                    <button class="outline" data-target="modal-login" onClick="toggleModal(event)">Log in</button>
+                    <button class="outline" data-target="modal-login" onClick="toggleModal(event)">{% trans "log in"|capfirst %}</button>
                 {% endif %}
             </li>
             </ul>
@@ -57,18 +71,18 @@
     <dialog id="modal-login">
         <article>
             <a href="#close" aria-label="Close" class="close" data-target="modal-login" onClick="toggleModal(event)"></a>
-            <h3>Enter your login information</h3>
+            <h3>{% trans "enter your login information"|capfirst %}</h3>
             <form id="login-form" method="post" action="{% url 'login' %}">
                 {% csrf_token %}
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
+                <input type="text" name="username" placeholder="{% trans 'username'|capfirst %}"/>
+                <input type="password" name="password" placeholder="{% trans 'password'|capfirst %}"/>
             </form>
             <ul>
-                <li><a href="{% url 'password_reset' %}">Forgot password</a></li>
-                <li><a href="{% url 'register-account' %}">Create account</a></li>
+                <li><a href="{% url 'password_reset' %}">{% trans "forgot password"|capfirst %}</a></li>
+                <li><a href="{% url 'register-account' %}">{% trans "create account"|capfirst %}</a></li>
             </ul>
             <footer>
-                <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">Login</button>
+                <button type="submit" data-target="modal-login" onClick="document.getElementById('login-form').submit();">{% trans "login"|capfirst %}</button>
             </footer>
         </article>
     </dialog>

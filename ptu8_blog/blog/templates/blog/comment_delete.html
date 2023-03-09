@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block title %}BeBlEv: Delete comment{% endblock title %}
+{% block title %}BeBlEv: {% trans "Delete comment" %}{% endblock title %}
 {% block head %}
     <script>
         function cancel(){
@@ -12,11 +12,11 @@
 {% block main %}
     <article>
         <header>
-            <h1>Do You really want to delete this comment?</h1>
+            <h1>{% trans "Do You really want to delete this comment?" %}</h1>
         </header>
             <article class="comment-box">
                 <p class="comment_header">
-                    Posted by {{ comment.commenter }} on {{ comment.posted }}
+                    {% trans "Posted by" %} {{ comment.commenter }} {% trans "on" %} {{ comment.posted }}
                 </p>
                 <p class="comment_text">{{ comment.text }}</p>
             </article>
@@ -25,8 +25,8 @@
             {% csrf_token %}
             {{ form.as_p }}
             <div class="grid">
-                <button type="button" class="contrast" onclick="cancel()" >Cancel</a>
-                <button type="submit">Confirm</button>
+                <button type="button" class="contrast" onclick="cancel()">{% trans "cancel"|capfirst %}</a>
+                <button type="submit">{% trans "confirm"|capfirst %}</button>
             </div>
         </form>
         </footer>

@@ -82,7 +82,7 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
         form.instance.post = self.object
         form.instance.commenter = self.request.user
         form.save()
-        messages.success(self.request, _('Commment posted successfully'))
+        messages.success(self.request, _("Commment posted successfully"))
         return super().form_valid(form)
 
 
@@ -140,7 +140,7 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.author = self.request.user
         # form.instance.status = 'd'
         messages.success(
-            self.request, _(f'Post "{form.instance.title}" successfully created.'))
+            self.request, f'  {_("Post")} "{form.instance.title}" {_("successfully created")}.')
         return super().form_valid(form)
 
 
@@ -153,7 +153,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
     def form_valid(self, form):
         form.instance.author = self.request.user
         messages.success(
-            self.request, _(f'Post "{form.instance.title}" successfully updated.'))
+            self.request, f'{_("Post")} "{form.instance.title}" {_("successfully updated")}.')
         return super().form_valid(form)
 
     def test_func(self):
@@ -169,7 +169,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView
         return self.get_object().author == self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, _(f'Post seccessfully deleted.'))
+        messages.success(self.request, _("Post seccessfully deleted."))
         return super().form_valid(form)
 
 
@@ -185,5 +185,5 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteV
         return (self.request.user.is_superuser or self.request.user.is_staff)
 
     def form_valid(self, form):
-        messages.success(self.request, _(f'Comment seccessfully deleted.'))
+        messages.success(self.request, _("Comment seccessfully deleted."))
         return super().form_valid(form)

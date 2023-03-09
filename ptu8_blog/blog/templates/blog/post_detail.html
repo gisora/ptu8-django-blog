@@ -7,14 +7,14 @@
         <header>
         <hgroup>
             <h1>{{ post.title }}</h1>
-            <h2>By <a href="{% url 'author-detail' post.author.id %}">{{ post.author.get_full_name }}</a> on {{ post.updated }}</h2>
+            <h2>{% trans "By" %} <a href="{% url 'author-detail' post.author.id %}">{{ post.author.get_full_name }}</a> {% trans "on" %} {{ post.updated }}</h2>
         </hgroup> 
     </header>
         <section>{{ post.text|safe }}</section>
     </article>   
 
     {% if post.comments.count > 0 %}
-        <h3> Comments ({{ post.comments.count }})</h3>
+        <h3> {% trans "comments"|capfirst %} ({{ post.comments.count }})</h3>
         <section id="comment-section">
             {% for comment in post.comments.all %}
                 <article class="comment-box">
@@ -27,25 +27,25 @@
                         {% else %}
                             <img style="width: 1.5rem; height: 1.5rem;" class="profileavatar" src="{% static 'blog/img/default_avatar.png' %}"> 
                         {% endif %}   
-                        <strong>{{ comment.commenter }}</strong> posted on {{ comment.posted|date:"Y-m-d H:i:s" }}
+                        <strong>{{ comment.commenter }}</strong> {% trans "posted on" %} {{ comment.posted|date:"Y-m-d H:i:s" }}
                     </p>
                     <p class="comment_text">{{ comment.text }}</p>
                 </article>
             {% endfor %}
         </section>
     {% else %}
-        <h3> No comments</h3>
+        <h3> {% trans "no comments"|capfirst %}</h3>
     {% endif %}
     {% if user.is_authenticated %}
         <section>
             <form method="post" action="{{ request.path }}">    
                 {% csrf_token %}
                 <!-- {{ form.as_p }} -->
-                <label for="text">Write your comment:</label>
+                <label for="text">{% trans "write your comment"|capfirst %}:</label>
                 {{ form.text }}
                 {{ form.post }}
                 {{ form.commenter }}
-                <button class="primary" type="submit">💬 Comment</button>
+                <button class="primary" type="submit">💬 {% trans "comment"|capfirst %}</button>
             </form>
         </section>
     {% endif %}
