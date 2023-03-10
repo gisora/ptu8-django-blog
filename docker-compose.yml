@@ -10,6 +10,12 @@ services:       # services yra konteinerių sąrašas
     # parametras tty nurodo, ar konteineris gali naudotis linux subsistemos serijinės sąsajos TeleTYpewriter savybėmis, kurių iš esmės reikia komandinei eilutei funkcionuoti. Tuo pačiu atidarom ir stdin - komandinės eilutės įvedimo funkciją, kurią gali tekti prireikti naudoti pvz. su python input() funkcija.
     tty: true
     stdin_open: true
+    depends_on:
+      - db
+    # pervadiname db konteinerio host lokaliame projekto tinkle. Nepamirškite duomenų bazės konfigūracijos faile nurodyti `host=postgres` vietoj `host=localhost`
+    links:
+      - db:ptu8.db
+
     # restart komanda nurodo sąlygas, kada perkrauti konteinerį jam išsijungus. Produkcinėje aplinkoje tai turėtų būti always. 
     restart: always
     # kokias komandas vykdyti paleidžiant konteinerį. Šios eilutės nereikia, jeigu Dockerfile yra COMMAND.
@@ -24,9 +30,12 @@ services:       # services yra konteinerių sąrašas
       - ./ptu8_blog:/app
     # vykdome komandas startuojant konteineriui, o ne konstruojant to konteinerio paveiksliuką (image). Rekomenduojame šias komandas iš Dockerfile pašalinti arba užkomentuoti.
     command: >
-      bash -c "python manage.py migrate &&
-            python manage.py collectstatic --noinput &&
-            gunicorn ptu8_blog.wsgi --bind 0.0.0.0:8000"
+      bash -c
+         "python wait_for_postgres.py &&
+          python manage.py migrate &&
+          python manage.py collectstatic --noinput &&
+          gunicorn ptu8_blog.wsgi --bind 0.0.0.0:8000"
+  
   nginx:           # Nginx konteineris
     # surenkame nginx konteinerį su mūsų projekto .conf
     build: ./nginx/
@@ -47,3 +56,21 @@ services:       # services yra konteinerių sąrašas
     volumes:
       - ./ptu8_blog/media:/app/media
       - ./ptu8_blog/static:/app/static
+  
+  
+  db: # sukuriame naują duomenų bazės servisą
+    # naudosime standartinį postgres image
+    image: postgres
+    # konteinerio pavadinimas
+    container_name: ptu8.db
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    # nurodžius environment'e duomenų bazės parametrus, nauajas postgres konteineris šiais parametrais sukurs tuščią duomenų bazę. Produkcinėje aplinkoje siūlytume nenurodyti jautrių duomenų šiame faile, o naudoti tarpinį .env failą, įdėtą į .gitignore.
+    environment:
+      POSTGRES_DB: ptu8_blog
+      POSTGRES_USER: ptu8_blog
+      POSTGRES_PASSWORD: ptu8_blog_nesakysiu
+      POSTGRES_PORT: 5432
