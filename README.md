@@ -1,2 +1,2 @@
-# ptu8-django-blog
+# python-django-blog
 PTU8 Praktinė Django užduotis
